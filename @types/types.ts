@@ -5,3 +5,7 @@ export interface IUser {
     password: string,
 }
 
+export interface IToken {
+    id: number,
+    refreshToken: string,
+}

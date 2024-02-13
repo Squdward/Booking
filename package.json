@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "jsonwebtoken": "^9.0.2",
     "mock-config-server": "^3.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

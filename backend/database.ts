@@ -1,17 +1,9 @@
-import { IUser } from "../@types/types";
-import { Loger } from "./utils/loger";
-
-// export const Database = { 
-//     users: [] as IUser[],
-//     refreshTokens: [],
-//     goods: []
-// }
-
+import { IToken, IUser } from "../@types/types";
 
 export class Database {
     private static readonly _database = {
       users: [] as IUser[],
-    //   refreshTokens: [] as RefreshToken[],
+      refreshTokens: [] as IToken[],
     //   goods: [] as Goods[],
     };
   

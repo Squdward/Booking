@@ -1,7 +1,6 @@
 import { COOKIES } from "../../constant/cookies";
 import { Database } from "../../database";
-import { generatePairOfTokens } from "../../utils/generateTokens";
-import { generateUser } from "../../utils/generateUser";
+import { UserService } from "../../service/user-service";
 import { isValidData } from "../config";
 
 const SignUp = (_, {request, setStatusCode, setCookie}) => {
@@ -27,11 +26,8 @@ const SignUp = (_, {request, setStatusCode, setCookie}) => {
         }
     }
 
-    // Делаем запись в базу данных 
-    const user = generateUser(Database.get('users').length, request.body);
-    
-    // Генерируем токен
-    const [accessToken, refreshToken] = generatePairOfTokens({id: user.id});
+    // Создаем пользователя  
+    const [user, accessToken, refreshToken] = UserService.registration(request.body)
     
     // Устанавливаем httpOnly куку
     setCookie(COOKIES.REFRESH_TOKEN, refreshToken, {
