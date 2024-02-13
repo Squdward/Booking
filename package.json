@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "server": "npx mock-config-server",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
+    "mock-config-server": "^3.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
