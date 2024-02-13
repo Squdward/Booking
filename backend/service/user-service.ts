@@ -30,9 +30,9 @@ class UserService {
         return [user, accessToken, refreshToken]
     }
 
-    // static login(id) {
-    //     Database.findOne('users', )
-    // }
+    static login(id) {
+        // Database.findOne('users', )
+    }
 }
 
 export {UserService}

@@ -4,16 +4,18 @@ import { SignUp } from "./register"
 import { SignIn } from "./signin"
 
 const AuthController = [
-    // {
-    //     path: "/signin",
-    //     method: "post",
-    //     routes: [
-    //         {
-    //             data: null, 
-    //             interceptors: SignIn
-    //         }
-    //     ]
-    // },
+    {
+        path: "/signin",
+        method: "post",
+        routes: [
+            {
+                data: null, 
+                interceptors: {
+                    respponse: SignIn,
+                }
+            }
+        ]
+    },
     {
         path: "/signup",
         method: "post",
