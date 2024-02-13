@@ -1,4 +1,7 @@
 /** @type {import('mock-config-server').MockServerConfig} */
+
+import Routes from './backend/routes';
+
 const mockServerConfig = {
     cors: {
       origin: "http://localhost:5173",
@@ -8,13 +11,7 @@ const mockServerConfig = {
     },
     rest: {
       baseUrl: '/api',
-      configs: [
-        {
-          path: '/user',
-          method: 'get',
-          routes: [{ data: { emoji: '🦁', name: 'Nursultan' } }]
-        }
-      ]
+      configs: Routes, // List of all routes 
     },
   };
   
