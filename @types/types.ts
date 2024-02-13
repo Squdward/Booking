@@ -6,6 +6,6 @@ export interface IUser {
 }
 
 export interface IToken {
-    id: number,
+    userId: number,
     refreshToken: string,
 }

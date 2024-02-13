@@ -27,11 +27,11 @@ export class Database {
       this._database[name] = this._database[name].filter((item: typeof Database['_database'][K][number]) => item.id !== id) as typeof Database['_database'][K];
     }
   
-    // static update<K extends keyof typeof Database['_database']>(name: K, id: string, newData: Partial<typeof Database['_database'][K][number]>): void {
-    //   const index = this._database[name].findIndex(item => item.id === id);
-    //   if (index !== -1) {
-    //     this._database[name][index] = { ...this._database[name][index], ...newData };
-    //   }
-    // }
+    static update<K extends keyof typeof Database['_database'], F extends keyof typeof Database['_database'][K][number]>(name: K, id: string | number, field: F, newData: Partial<typeof Database['_database'][K][number]>): void {
+      const index = this._database[name].findIndex(item => item[field] === id);
+      if (index !== -1) {
+        this._database[name][index] = { ...this._database[name][index], ...newData };
+      }
+    }
   }
 

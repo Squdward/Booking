@@ -21,8 +21,18 @@ class TokenService {
         return [accessToken, refreshToken]
     }
 
-    static save(id: IUser['id'], refreshToken: IToken['refreshToken']) {
-        Database.add('refreshTokens', {id, refreshToken})
+    static save(userId: IUser['id'], refreshToken: IToken['refreshToken']) {
+        const token = Database.findOne('refreshTokens', (token) => token.userId === userId )
+
+        // Если токен уже существует значит мы заменяем его новым
+        if(token) {
+            Database.update('refreshTokens', token.userId, 'userId', {...token, refreshToken})
+        
+            return
+        } 
+
+        // 
+        Database.add('refreshTokens', {userId, refreshToken})
     }  
 }
 
