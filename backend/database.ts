@@ -19,8 +19,11 @@ export class Database {
       return this._database[name].find(func);
     }
   
-    static add<K extends keyof typeof Database['_database']>(name: K, value: typeof Database['_database'][K][number]): void {
+    static add<K extends keyof typeof Database['_database']>(name: K, value: typeof Database['_database'][K][number]): typeof Database['_database'][K][number] {
       this._database[name].push(value);
+      
+      // Возвращаем добавленный элемент
+      return value;
     }
   
     static remove<K extends keyof typeof Database['_database']>(name: K, id: string): void {
