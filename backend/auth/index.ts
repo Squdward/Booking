@@ -11,7 +11,7 @@ const AuthController = [
             {
                 data: null, 
                 interceptors: {
-                    respponse: SignIn,
+                    response: SignIn,
                 }
             }
         ]

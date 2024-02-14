@@ -1,5 +1,4 @@
 import { COOKIES } from "../../constant/cookies";
-import { Database } from "../../database";
 import { UserService } from "../../service/user-service";
 import { CustomError } from "../../utils/errors";
 import { isValidData } from "../config";

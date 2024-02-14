@@ -39,8 +39,23 @@ class UserService {
         return {user, accessToken, refreshToken}
     }
 
-    static login(id) {
-        // Database.findOne('users', )
+    static login(body: UserLogin) {
+        // Проверяем есть ли пользовател с таким email и пароль?
+        const user = Database.findOne("users", (user) => user.email === body.email && user.password === body.password);
+
+        // Если пользователь существует выкидываем ошибку 
+        if (!user) {
+            throw new CustomError('Incorrect login or password', 401)
+        }
+
+        // Генерируеем парк токенов 
+        const [accessToken, refreshToken] = TokenService.generate({id: user.id});
+
+        // Сохраняем токен в БД
+        TokenService.save(user.id, refreshToken);
+
+
+        return {user, accessToken, refreshToken}
     }
 }
 

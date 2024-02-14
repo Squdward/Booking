@@ -31,9 +31,11 @@ class TokenService {
 
         // Если токен уже существует значит мы заменяем его новым
         if(token) {
-            console.log('save', Database.get('refreshTokens'))
             Database.update('refreshTokens', token.userId, 'userId', {...token, refreshToken})
+
             console.log('after: save', Database.get('refreshTokens'))
+
+            return
         } 
 
         // Если токена не существует добавляем его в БД
