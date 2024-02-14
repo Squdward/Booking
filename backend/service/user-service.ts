@@ -30,7 +30,7 @@ class UserService {
         const user = Database.add('users', userSchema);
         
         // Генерируем пару токенов 
-        const [accessToken, refreshToken] = TokenService.generate({id: user.id})
+        const [accessToken, refreshToken] = TokenService.generate({userId: user.id})
         
         // Добавляем токен в БД
         TokenService.save(user.id, refreshToken);
@@ -49,7 +49,7 @@ class UserService {
         }
 
         // Генерируеем парк токенов 
-        const [accessToken, refreshToken] = TokenService.generate({id: user.id});
+        const [accessToken, refreshToken] = TokenService.generate({userId: user.id});
 
         // Сохраняем токен в БД
         TokenService.save(user.id, refreshToken);
