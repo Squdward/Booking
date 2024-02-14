@@ -3,8 +3,11 @@ import { ACCSES_SECRET_KEY, EXPIRES_TIME, REFRESH_SECRET_KEY } from "../constant
 import { Database } from "../database";
 import jwt from "jsonwebtoken";
 
+type payload = {
+    id: IUser['id']
+}
 class TokenService { 
-    static generate(payload: any) {
+    static generate(payload: payload): [string, string] {
         const accessToken = jwt.sign(
             payload,
             ACCSES_SECRET_KEY, {
@@ -18,20 +21,22 @@ class TokenService {
                 expiresIn: EXPIRES_TIME.refreshToken,
             }
         )
+
         return [accessToken, refreshToken]
     }
 
     static save(userId: IUser['id'], refreshToken: IToken['refreshToken']) {
+        // Проверяем сущестует ли токен 
         const token = Database.findOne('refreshTokens', (token) => token.userId === userId )
 
         // Если токен уже существует значит мы заменяем его новым
         if(token) {
+            console.log('save', Database.get('refreshTokens'))
             Database.update('refreshTokens', token.userId, 'userId', {...token, refreshToken})
-        
-            return
+            console.log('after: save', Database.get('refreshTokens'))
         } 
 
-        // 
+        // Если токена не существует добавляем его в БД
         Database.add('refreshTokens', {userId, refreshToken})
     }  
 }
