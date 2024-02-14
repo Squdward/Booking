@@ -1,42 +1,36 @@
 import { COOKIES } from "../../constant/cookies";
 import { Database } from "../../database";
 import { UserService } from "../../service/user-service";
+import { CustomError } from "../../utils/errors";
 import { isValidData } from "../config";
 
 const SignUp = (_, {request, setStatusCode, setCookie}) => {
-    const {email, password} = request.body
+    try {
+        const {email, password} = request.body
 
-    // Проверяем валидность данных
-    if(!isValidData(email, password)) {
-        setStatusCode(401);
+        // Проверяем валидность данных
+        if(!isValidData(email, password)) {
+            throw new CustomError("Email or password is invalid", 401)
+        }
+        
+        // Создаем пользователя  
+        const {user, accessToken, refreshToken} = UserService.registration(request.body)
+        
+        // Устанавливаем httpOnly куку
+        setCookie(COOKIES.REFRESH_TOKEN, refreshToken, {
+            httpOnly: true,
+            maxAge: COOKIES.REFRESH_TIME_LIVE,
+            path: "/"
+        })
+
+        return {...user, accessToken}
+    } catch (error) {
+        setStatusCode(error.code);
 
         return {
-            message: "Email or password is invalid"
+            message: error.message
         }
     }
-
-    // Проверяем зантя ли Email?
-    const candidate = Database.findOne('users',  (user) => user.email === email)
-
-    if(candidate) {
-        setStatusCode(401);
-
-        return {
-            message: "This email address is already taken"
-        }
-    }
-
-    // Создаем пользователя  
-    const [user, accessToken, refreshToken] = UserService.registration(request.body)
-    
-    // Устанавливаем httpOnly куку
-    setCookie(COOKIES.REFRESH_TOKEN, refreshToken, {
-        httpOnly: true,
-        maxAge: COOKIES.REFRESH_TIME_LIVE,
-        path: "/"
-    })
-
-    return {...user, accessToken}
 }
 
 export {SignUp}
