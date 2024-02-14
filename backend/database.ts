@@ -1,10 +1,13 @@
-import { IToken, IUser } from "../@types/types";
+import { IAuthor, IGoods, ITag, IToken, IUser } from "../@types/types";
+import { mockAuthors, mockGoods, mockTags } from "./__mockData__/goods";
 
 export class Database {
     private static readonly _database = {
       users: [] as IUser[],
       refreshTokens: [] as IToken[],
-    //   goods: [] as Goods[],
+      goods: mockGoods as IGoods[],
+      authors: mockAuthors as IAuthor[],
+      tags: mockTags as ITag[],
     };
   
     static get<K extends keyof typeof Database['_database']>(name: K): typeof Database['_database'][K] {
