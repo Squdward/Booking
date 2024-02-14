@@ -1,6 +1,6 @@
-import { COOKIES } from "../../constant/cookies";
-import { UserService } from "../../service/user-service";
-import { CustomError } from "../../utils/errors";
+import { COOKIES } from "../../../constant/cookies";
+import { UserService } from "../../../service/user-service";
+import { CustomError } from "../../../utils/errors";
 import { isValidData } from "../config";
 
 const SignUp = (_, {request, setStatusCode, setCookie}) => {

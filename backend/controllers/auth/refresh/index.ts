@@ -1,6 +1,6 @@
-import { COOKIES } from "../../constant/cookies";
-import { TokenService } from "../../service/token-service";
-import { CustomError } from "../../utils/errors";
+import { COOKIES } from "../../../constant/cookies";
+import { TokenService } from "../../../service/token-service";
+import { CustomError } from "../../../utils/errors";
 
 const Refersh = (_, {getCookie, setCookie, setStatusCode}) => {
     try {

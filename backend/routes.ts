@@ -1,4 +1,4 @@
-import { AuthController } from "./auth"
+import { AuthController } from "./controllers/auth"
 
 const Routes = [
     ...AuthController,
