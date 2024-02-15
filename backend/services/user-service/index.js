@@ -69,6 +69,11 @@ class UserService {
 
         return {user: userDto, accesToken, refreshToken: newRefreshToken}
     }
+
+    static async logout(refreshToken) {
+        const deletedToken = TokenService.removeToken(refreshToken);
+        return deletedToken
+    }
 }
 
 

@@ -14,7 +14,7 @@ class UserController {
 
             const userData = await UserService.registration(email, password);
 
-            response.cookie(REFRESH_COOKIE_NAME, userData.refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, httpOnly: true} )
+            response.cookie(REFRESH_COOKIE_NAME, userData.refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, path: "/",  httpOnly: true} )
             
             return response.json(userData)
         } catch (error) {
@@ -34,7 +34,7 @@ class UserController {
 
             const userData = await UserService.login(email, password);
 
-            response.cookie(REFRESH_COOKIE_NAME, userData.refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, httpOnly: true} )
+            response.cookie(REFRESH_COOKIE_NAME, userData.refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, path: "/",  httpOnly: true} )
 
             return  response.json(userData)
         } catch (error) {
@@ -47,7 +47,7 @@ class UserController {
             const cookie = request.cookies;
             const {user, accesToken, refreshToken} = await UserService.refresh(cookie[REFRESH_COOKIE_NAME])
 
-            response.cookie(REFRESH_COOKIE_NAME, refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, httpOnly: true} )
+            response.cookie(REFRESH_COOKIE_NAME, refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, path: "/",  httpOnly: true} )
 
             return response.json({user, accesToken})
         } catch (error) {
@@ -55,8 +55,18 @@ class UserController {
         }
     }
 
-    static async logout() {
+    static async logout(request, response, next) {
+        try {
+            const cookie = request.cookies;
+            
+            const deletedToken = await UserService.logout(cookie[REFRESH_COOKIE_NAME], {path: "/", httpOnly: true});
+            
+            response.clearCookie(cookie[REFRESH_COOKIE_NAME]);
 
+            return response.json({deletedToken})
+        } catch (error) {
+            next(error)
+        }
     }
 
 }
