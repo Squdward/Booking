@@ -22,8 +22,24 @@ class UserController {
         }
     }
 
-    static async login() {
+    static async login(request, response, next) {
+        try {
+            const errors = validationResult(request);
 
+            if(!errors.isEmpty()) {
+                throw ApiError.BadRequest('Body fields are invalid', errors.errors.map( i => i.msg))
+            }
+
+            const {email, password} = request.body;
+
+            const userData = await UserService.login(email, password);
+
+            response.cookie(REFRESH_COOKIE_NAME, userData.refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, httpOnly: true} )
+
+            return  response.json(userData)
+        } catch (error) {
+            next(error)
+        }
     }
 
     static async logout() {
