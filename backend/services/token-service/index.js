@@ -22,12 +22,25 @@ class TokenService {
 
         if(tokenData) {
             tokenData.refreshToken = refreshToken
-            console.log(tokenData)
             return tokenData.save()
         }
 
         const token = TokenSchema.create({user: userId, refreshToken})
 
+        return token
+    }
+
+    static async validateToken(refreshToken) {
+        try {
+            const data = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+
+    static async findToken(refreshToken) {
+        const token = await TokenSchema.findOne({refreshToken})
         return token
     }
 }

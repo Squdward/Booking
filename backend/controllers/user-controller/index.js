@@ -42,13 +42,23 @@ class UserController {
         }
     }
 
+    static async refresh(request, response, next) {
+        try {
+            const cookie = request.cookies;
+            const {user, accesToken, refreshToken} = await UserService.refresh(cookie[REFRESH_COOKIE_NAME])
+
+            response.cookie(REFRESH_COOKIE_NAME, refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, httpOnly: true} )
+
+            return response.json({user, accesToken})
+        } catch (error) {
+            next(error)
+        }
+    }
+
     static async logout() {
 
     }
 
-    static async refresh() {
-
-    }
 }
 
 module.exports = UserController
