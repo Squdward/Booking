@@ -1,0 +1,6 @@
+const BASE_COOKIE_NAME = 'booking';
+
+const REFRESH_COOKIE_NAME = `${BASE_COOKIE_NAME}_refresh_token`;
+const REFRESH_COOKIE_MAX_AGE = 2.592e+9 // 30d
+
+module.exports = {REFRESH_COOKIE_NAME, REFRESH_COOKIE_MAX_AGE}
