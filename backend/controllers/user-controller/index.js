@@ -61,7 +61,7 @@ class UserController {
             
             const deletedToken = await UserService.logout(cookie[REFRESH_COOKIE_NAME], {path: "/", httpOnly: true});
             
-            response.clearCookie(cookie[REFRESH_COOKIE_NAME]);
+            response.clearCookie(REFRESH_COOKIE_NAME, {path: "/",  httpOnly: true});
 
             return response.json({deletedToken})
         } catch (error) {
