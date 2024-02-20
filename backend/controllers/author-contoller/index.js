@@ -1,11 +1,13 @@
-const BookService = require("../../services/book-service");
+const AuthorService = require("../../services/author-service");
 
 class AuthorController {
     static async createAuthor(req, res, next) {
         try {
+            const authorData = await AuthorService.createAuthor(req.body);
 
+            return res.json(authorData)
         } catch (error) {
-
+            next(error)
         }
     }
 
