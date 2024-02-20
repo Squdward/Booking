@@ -30,9 +30,18 @@ class TokenService {
         return token
     }
 
-    static async validateToken(refreshToken) {
+    static async validateRefreshToken(refreshToken) {
         try {
             const data = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+            return data
+        } catch (error) {
+            return null
+        }
+    }
+    
+    static async validateAccesToken(refreshToken) {
+        try {
+            const data = jwt.verify(refreshToken, process.env.ACCCES_SECRET);
             return data
         } catch (error) {
             return null

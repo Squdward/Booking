@@ -52,7 +52,7 @@ class UserService {
         if(!refreshToken) {
             throw ApiError.UnauthorizedError('Invalid token')
         }
-        const jwtData = await TokenService.validateToken(refreshToken) 
+        const jwtData = await TokenService.validateRefreshToken(refreshToken) 
         const token = await TokenService.findToken(refreshToken)
 
         if(!jwtData || !token) {
