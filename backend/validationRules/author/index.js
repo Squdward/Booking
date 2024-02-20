@@ -6,8 +6,8 @@ class ValidationAuthorRules {
         return [
             body('fullName', 'Invalid Author name ').isString().withMessage('Should be a string').notEmpty().withMessage('Should be not empty'),
             body('description', 'Invalid Author description ').isString().withMessage('Should be a string').notEmpty().withMessage('Should be not empty'),
-            body('dateOfBirth', 'Invalid Date').isDate().withMessage('`Should be a date '),
-            body('dateOfDeath', 'Invalid Date').optional().isDate().withMessage('`Should be a date '),
+            body('dateOfBirth', 'Invalid Date').isISO8601().withMessage('`Should be a date '),
+            body('dateOfDeath', 'Invalid Date').optional().isISO8601().withMessage('`Should be a date '),
             body("img", 'Invalida img').isString().withMessage('Should be a string')
         ]
     }
