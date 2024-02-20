@@ -8,6 +8,13 @@ class AuthorService {
     } 
 
     static async getOneAuthor(id) {
+        const author = await authorModel.findById(id);
+
+        if(!author) {
+            throw ApiError.NotFound('Author with this ID was not found ')
+        }
+
+        return author
     } 
 
     static async getAllAuthors(body) {
