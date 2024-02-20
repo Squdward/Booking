@@ -3,9 +3,8 @@ const {body} = require('express-validator');
 const AuthMiddleware = require('../middlwares/authMiddleware');
 const BookController = require('../controllers/book-controller');
 const ValidatorMiddleware = require('../middlwares/validatorMiddleware');
-const validationBookRules = require('../controllers/book-controller/validationRules');
 const Router = require('express').Router;
-
+const validationBookRules = require("../validationRules/book")
 const router = new Router();
 
 // Auth Block
