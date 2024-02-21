@@ -1,6 +1,7 @@
 const { body, check } = require("express-validator");
 const { isValidObjectId } = require("mongoose");
 const AuthorService = require("../../services/author-service");
+const GenreService = require("../../services/genre-service");
 
 
 class ValidationBookRules {
@@ -25,6 +26,20 @@ class ValidationBookRules {
                 return true
             }),
             body('genre', 'Invalid list of gener').isArray({min: 1, max: 15}).withMessage('Invalid type or length'),
+            body('genre').custom( async (value) => {
+
+                if (!value.every( id => isValidObjectId(id))) {
+                    throw new Error('Invalid ObjectId');
+                  }
+
+                  const genreData = await GenreService.findAllGenre(value);
+
+                  if(!genreData || genreData.length !== value.length) {
+                    throw new Error('The genre with this id(s) does not exist');
+                  }
+
+                return true
+            }) 
         ]
     }
 }
