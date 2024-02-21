@@ -7,7 +7,8 @@ const Router = require('express').Router;
 const validationBookRules = require("../validationRules/book");
 const ValidationAuthorRules = require('../validationRules/author');
 const AuthorController = require('../controllers/author-contoller');
-// const validationBookRules = require("../validationRules/author")
+const GenreController = require('../controllers/genre-controller');
+const ValidationGenreRules = require('../validationRules/genre');
 const router = new Router();
 
 // Auth Block
@@ -18,6 +19,9 @@ router.get('/logout', UserController.logout)
 
 // Author
 router.post('/author', AuthMiddleware, ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
+
+// Genre
+router.post('/genre', AuthMiddleware, ValidationGenreRules.createGenre(), ValidatorMiddleware, GenreController.createGenre)
 
 // Book
 router.post('/books', AuthMiddleware, validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
