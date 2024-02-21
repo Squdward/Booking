@@ -25,7 +25,6 @@ class ValidationBookRules {
                 return true
             }),
             body('genre', 'Invalid list of gener').isArray({min: 1, max: 15}).withMessage('Invalid type or length'),
-            body('tags', 'Invalid list of tags').isArray({min: 1, max: 15}).withMessage('Invalid type or length'),
         ]
     }
 }
