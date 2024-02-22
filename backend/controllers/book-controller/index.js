@@ -3,10 +3,9 @@ const BookService = require("../../services/book-service");
 class BookController {
     static async createBook(req, res, next) {
         try {
-            console.log('Happy house')
-            // const book = BookService.createBook();
+            const book = await BookService.createBook(req.body);
 
-            // return res.json(book)
+            return res.json(book)
         } catch (error) {
             console.error(error)
             next(error)
