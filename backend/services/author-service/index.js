@@ -5,7 +5,7 @@ const ApiError = require("../../utils/apiError");
 class AuthorService {
     static async createAuthor(body) {
         const author = await authorModel.create(body);
-        
+
         return author 
     } 
 
@@ -22,10 +22,6 @@ class AuthorService {
     static async getAllAuthors(body) {
 
     } 
-
-    static async createAuthor(body) {
-
-    } 
-}
+        }
 
 module.exports = AuthorService
