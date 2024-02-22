@@ -6,6 +6,6 @@ const AuthorSchema = new Schema({
     dateOfBirth: {type: Date, required: true},
     dateOfDeath: {type: Date},
     img: {type: String, required: true},
-})
+}, {versionKey: false})
 
 module.exports = model('Author', AuthorSchema)

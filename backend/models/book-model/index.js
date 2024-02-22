@@ -7,6 +7,6 @@ const BookSchema = new Schema({
     price: {type: Number, required: true},
     author: {type: Schema.Types.ObjectId, ref: 'Author', required: true},
     genre: [{type: Schema.Types.ObjectId, ref: 'Genre', required: true}],
-})
+}, {versionKey: false})
 
 module.exports = model('Book', BookSchema)
