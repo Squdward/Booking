@@ -24,7 +24,8 @@ router.post('/author', AuthMiddleware, ValidationAuthorRules.createAuthor(), Val
 router.post('/genre', AuthMiddleware, ValidationGenreRules.createGenre(), ValidatorMiddleware, GenreController.createGenre)
 
 // Book
-router.post('/books', AuthMiddleware, validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
+router.post('/book', AuthMiddleware, validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
+router.get('/book/:id', AuthMiddleware, BookController.getOneBook)
 
 
 

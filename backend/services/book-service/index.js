@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const bookModel = require("../../models/book-model");
 const ApiError = require("../../utils/apiError");
 
@@ -14,6 +15,22 @@ class BookService {
         return book
     }
 
+    static async getOneBook(id) {
+        if(!isValidObjectId(id)) {
+            throw ApiError.BadRequest('Incorrect id');
+
+        }
+        const bookData = await bookModel.findById(id);
+
+        if(!bookData) {
+            throw ApiError.NotFound('Book with this id was not found');
+        }
+
+        await bookData.populate('genre')
+        await bookData.populate({path: 'author', select: ['fullName', '_id']})
+
+        return bookData
+    }
 }
 
 module.exports = BookService
