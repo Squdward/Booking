@@ -18,14 +18,15 @@ router.get('/refresh', UserController.refresh)
 router.get('/logout', UserController.logout)
 
 // Author
-router.post('/author', AuthMiddleware, ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
+// router.post('/author', AuthMiddleware, ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
+router.post('/author', ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
 
 // Genre
 router.post('/genre', AuthMiddleware, ValidationGenreRules.createGenre(), ValidatorMiddleware, GenreController.createGenre)
 
 // Book
 router.post('/book', AuthMiddleware, validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
-router.get('/book/:id', AuthMiddleware, BookController.getOneBook)
+// router.get('/book/:id', AuthMiddleware, BookController.getOneBook)
 
 
 
