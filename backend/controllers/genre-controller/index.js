@@ -10,6 +10,16 @@ class GenreController {
             next(error)
         }
     }
+
+    static async getAllGenres(req, res, next) {
+        try {
+            const genreData = await GenreService.getAllAGenres();
+
+            return res.json(genreData)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = GenreController
