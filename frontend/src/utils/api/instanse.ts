@@ -1,6 +1,7 @@
 import axios from "axios";
 import { redirect } from "react-router-dom";
 import { refreshToken } from "./request/refresh";
+import { Token } from "../tokens";
 
 
 export const BASE_API_NAME = 'http://localhost:31299/api';
@@ -14,7 +15,7 @@ export const api = axios.create({
  * Перехватывает запрос и вшивает токен в Headers
  */
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem("token");
+    const token = Token.getToken();
 
     config.headers.Authorization = `Bearer ${token}`;
 
@@ -39,7 +40,7 @@ api.interceptors.response.use(
             if(status == 401) {
                 const response = await refreshToken({withCredentials: true})
 
-                localStorage.setItem('token', response.data.accessToken);
+                Token.setToken(response.data.accesToken)
 
                 return api.request(baseConfig);
             }
