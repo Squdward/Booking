@@ -1,4 +1,4 @@
-import { Button, Input, Select, Stack, Textarea } from "@mantine/core"
+import { Button, FileInput, Input, Stack, Textarea } from "@mantine/core"
 import { AuthorSelect } from "./authorSelect";
 import { BookRequest } from "../../utils/api/request/book";
 import { GenreSelect } from "./genreSelect";
@@ -11,7 +11,7 @@ interface FormElements extends HTMLFormControlsCollection {
     img: HTMLInputElement,
     price: HTMLInputElement,
     authors: HTMLInputElement,
-    genres: H
+    genres: HTMLInputElement
 }
 
 interface CreateBookFoorm extends HTMLFormElement {
@@ -19,28 +19,41 @@ interface CreateBookFoorm extends HTMLFormElement {
 }
 
 const CreateBook = () => {
-    const onSubmitHandler = async (event: React.FormEvent<CreateBookFoorm>) => {
+    const onSubmitHandler = async function(event: React.FormEvent<CreateBookFoorm>) {
         event.preventDefault();
-        
-        const elements = event.currentTarget.elements;
 
-        const body = {
-            title: elements.title.value,
-            description: elements.description.value,
-            img: elements.img.value,
-            price: Number(elements.price.value),
-            author: elements.authors.value,
-            genre: elements.genres.value.split(","),
+        const elements = event.currentTarget.elements;
+        const files = elements.img.files;
+
+        if(!files || files?.length === 0 || files[0] == null) {
+            return
         }
 
-        if (!Object.values(body).every((v) => Array.isArray(v) ? v.every( g => g == true) :  v == true)) {
+        const body = {
+            title: elements.title.value.trim(),
+            description: elements.description.value.trim(),
+            img: files[0],
+            price: Number(elements.price.value),
+            author: elements.authors.value.trim(),
+            genre: elements.genres.value.trim(),
+        }
+
+        // Внутри body не должно быть falsy значений
+        if (!Object.values(body).every((v) => v)) {
             console.error('Данные заполнены неправильно')
             return       
         }
-        try {
-            const Book = await BookRequest.create(body)
 
-            console.log(Book)
+        const formatBody = new FormData();
+
+        for(const [key, value] of Object.entries(body)) {
+            formatBody.append(key, value.toString())
+        }
+    
+        try {
+            const book = await BookRequest.create(body)
+
+            console.log(book)
         } catch (error) {
             console.error(error);
         }
@@ -51,7 +64,7 @@ const CreateBook = () => {
             <Stack h={600} gap={'lg'}>
                 <Input placeholder="Title" name="title"/>
                 <Textarea placeholder="Description" name="description"/>
-                <Input placeholder="Cover" name="img"/>
+                <FileInput placeholder="Cover" name="img"/>
                 <Input placeholder="Price" type="number" name="price"/>
                 <AuthorSelect name={'authors'} placeholder="Authors" />
                 <GenreSelect name="genres" placeholder="genres"/>

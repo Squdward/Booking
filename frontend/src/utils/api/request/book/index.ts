@@ -1,9 +1,12 @@
-import { RequestConfig } from "../../../../types/api";
-import { IBook, IBookCreate } from "../../../../types/book";
+import { IBookCreate } from "../../../../types/book";
 import { api } from "../../instanse";
 
 const BookRequest = {
-    create: (body: IBookCreate) => api.post('book', body)  
-}
+    create: (body: IBookCreate) => api.post("book", body, {
+        headers: {
+            "Content-Type": "multipart/form-data"
+        }
+    }),
+};
 
-export {BookRequest}
+export { BookRequest };

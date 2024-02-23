@@ -12,5 +12,6 @@ export interface IBook {
 
 export interface IBookCreate extends IBook {
     author: IAuthor['_id'],
-    // genre: IGenre['_id'] | IGenre['_id'][]
+    img: File
+    genre: string,
 }
