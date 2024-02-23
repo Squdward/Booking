@@ -16,8 +16,15 @@ class GenreService {
         return genre
     } 
 
-    static async getAllAGenres() {
+    static async getAllAGenres(body) {
         const genre = await genreModel.find();
+
+        return genre
+    }
+    
+    // Todo: Rename
+    static async findAllGenre(ids) {
+        const genre = await genreModel.find({_id: {$in: ids}});
 
         return genre
     }

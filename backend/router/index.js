@@ -9,6 +9,7 @@ const ValidationAuthorRules = require('../validationRules/author');
 const AuthorController = require('../controllers/author-contoller');
 const GenreController = require('../controllers/genre-controller');
 const ValidationGenreRules = require('../validationRules/genre');
+const { uploadBookCover } = require('../utils/imageRoutes');
 const router = new Router();
 
 // Auth Block
@@ -27,7 +28,10 @@ router.post('/genre', AuthMiddleware, ValidationGenreRules.createGenre(), Valida
 router.get('/genre', GenreController.getAllGenres) // return authMiddleWare
 
 // Book
-router.post('/book', AuthMiddleware, validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
+// router.post('/book', AuthMiddleware, validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
+router.post('/book', uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
+// router.post('/book', BookController.createBook)
+
 // router.get('/book/:id', AuthMiddleware, BookController.getOneBook)
 
 

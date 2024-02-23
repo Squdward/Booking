@@ -9,9 +9,7 @@ class ValidationBookRules {
         return [
             body('title', "Invalid 'Title' field").isString().withMessage('Should be a string').notEmpty().withMessage('Should be not empty'),
             body('description', 'Invalid Description').isString().withMessage('Should be a string').notEmpty().withMessage('Should be not empty'),
-            body('img', 'Invalid Image').isString().withMessage('Should be a string').notEmpty().withMessage('Should be not empty'),
             body('price', 'Invalid price').isInt().withMessage('Should be a number'),  
-            body('price', 'Invalid price').isInt().withMessage('Should be a number'),
             check('author', 'Invalid Author').custom(async (value) => {
                 if(!isValidObjectId) {  
                     throw new Error('Invalid ID format');
@@ -25,16 +23,15 @@ class ValidationBookRules {
 
                 return true
             }),
-            body('genre', 'Invalid list of gener').isArray({min: 1, max: 15}).withMessage('Invalid type or length'),
             body('genre').custom( async (value) => {
-
-                if (!value.every( id => isValidObjectId(id))) {
+                const array = value.split(",")
+                if (!array.every( id => isValidObjectId(id))) {
                     throw new Error('Invalid ObjectId');
                   }
 
-                  const genreData = await GenreService.findAllGenre(value);
+                  const genreData = await GenreService.findAllGenre(array);
 
-                  if(!genreData || genreData.length !== value.length) {
+                  if(!genreData || genreData.length !== array.length) {
                     throw new Error('The genre with this id(s) does not exist');
                   }
 
