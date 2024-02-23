@@ -20,8 +20,10 @@ class AuthorService {
     } 
 
     static async getAllAuthors(body) {
+        const author = await authorModel.find();
 
+        return author
     } 
-        }
+}
 
 module.exports = AuthorService

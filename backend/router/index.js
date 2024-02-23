@@ -18,8 +18,9 @@ router.get('/refresh', UserController.refresh)
 router.get('/logout', UserController.logout)
 
 // Author
-// router.post('/author', AuthMiddleware, ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
-router.post('/author', ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
+router.post('/author', AuthMiddleware, ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
+// router.post('/author', ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
+router.get('/author', AuthorController.getAuthors) // return authMiddleWare
 
 // Genre
 router.post('/genre', AuthMiddleware, ValidationGenreRules.createGenre(), ValidatorMiddleware, GenreController.createGenre)

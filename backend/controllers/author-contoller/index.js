@@ -19,11 +19,13 @@ class AuthorController {
         }
     }
 
-    static async getAuthors() {
+    static async getAuthors(req, res, next) {
         try {
+            const authorsData = await AuthorService.getAllAuthors();
 
+            return res.json(authorsData)
         } catch (error) {
-
+            next(error)
         }
     }
 }
