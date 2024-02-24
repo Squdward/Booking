@@ -5,29 +5,26 @@ class AuthorController {
         try {
             const authorData = await AuthorService.createAuthor(req.body);
 
-            return res.json(authorData)
+            return res.json(authorData);
         } catch (error) {
-            next(error)
+            next(error);
         }
     }
 
     static async getOneAuthor() {
         try {
-
-        } catch (error) {
-
-        }
+        } catch (error) {}
     }
 
     static async getAuthors(req, res, next) {
         try {
             const authorsData = await AuthorService.getAllAuthors();
 
-            return res.json(authorsData)
+            return res.json(authorsData);
         } catch (error) {
-            next(error)
+            next(error);
         }
     }
 }
 
-module.exports = AuthorController
+module.exports = AuthorController;

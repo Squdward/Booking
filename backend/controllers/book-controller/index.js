@@ -5,12 +5,12 @@ class BookController {
         try {
             const book = await BookService.createBook(req.body, req.file);
 
-            return res.json(book)
+            return res.json(book);
         } catch (error) {
-            console.error(error)
-            next(error)
+            console.error(error);
+            next(error);
         }
     }
 }
 
-module.exports = BookController
+module.exports = BookController;
