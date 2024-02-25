@@ -39,6 +39,7 @@ router.get('/book', BookController.getBooks)
 // Cart
 router.post('/cart', AuthMiddleware, ValidationCartRules.AddToCart(), ValidatorMiddleware, CartController.addToCart)
 router.get('/cart', AuthMiddleware, CartController.getCart)
+router.delete('/cart/:cartId', AuthMiddleware, CartController.removeFromCart)
 
 // Favourite
 router.post('/favourite', AuthMiddleware, ValidationFavouriteRules.addToFavourite(), ValidatorMiddleware, FavouriteController.addToFavourite)

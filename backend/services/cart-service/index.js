@@ -1,3 +1,4 @@
+const { isValidObjectId } = require("mongoose");
 const cartModel = require("../../models/cart-model");
 const ApiError = require("../../utils/apiError");
 
@@ -58,6 +59,24 @@ class CartService {
         }
 
         return cart 
+    }
+
+    static async removFromCart(userId, cartId) {
+        if (!isValidObjectId(cartId)) {
+            throw ApiError.NotFound("cartId id invalid");
+        }
+
+        const removedCart = await cartModel.findOneAndUpdate(
+            { userId },
+            { $pull: { products: { _id: cartId } } },
+            { new: true }
+        );
+
+        if (!removedCart) {
+            throw ApiError.NotFound("Product with this id was not found ");
+        }
+
+        return removedCart;
     }
 }
 
