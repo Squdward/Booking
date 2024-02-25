@@ -39,14 +39,17 @@ class BookService {
         return populatedData;
     }
 
-    static async getBooks(params) {
+    static async getBooks({page, limit=12, ...params}) {
         const query = BookService._generateQueryFilter(params);
 
-        const booksQuery = bookModel.find(query);
+        const countOfDocuments = await bookModel.find(query).countDocuments();
+        const totalPages = Math.ceil(countOfDocuments / limit)
 
-        const booksData = await BookService._populateBooks(booksQuery)
-
-        return booksData;
+        const booksQuery = bookModel.find(query).skip((page - 1) * limit).limit(limit);
+        
+        const books = await BookService._populateBooks(booksQuery)
+        
+        return {books, totalPages, currentPage: page};
     }
 
     static _generateQueryFilter(params) {
