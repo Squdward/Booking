@@ -20,21 +20,17 @@ router.get('/logout', UserController.logout)
 
 // Author
 router.post('/author', AuthMiddleware, ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
-// router.post('/author', ValidationAuthorRules.createAuthor(), ValidatorMiddleware, AuthorController.createAuthor)
-router.get('/author', AuthorController.getAuthors) // return authMiddleWare
+router.get('/author', AuthMiddleware, AuthorController.getAuthors)
 
 // Genre
 router.post('/genre', AuthMiddleware, ValidationGenreRules.createGenre(), ValidatorMiddleware, GenreController.createGenre)
-router.get('/genre', GenreController.getAllGenres) // return authMiddleWare
+router.get('/genre', AuthMiddleware, GenreController.getAllGenres)
 
 // Book
-// router.post('/book', AuthMiddleware, validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
-router.post('/book', uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
-// router.post('/book', BookController.createBook)
+router.post('/book', AuthMiddleware, uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
 
-// router.get('/book', AuthMiddleware, BookController.getBooks) 
-router.get('/book', BookController.getBooks) // return authMiddleWare
-// router.get('/book/:id', AuthMiddleware, BookController.getOneBook)
+router.get('/book', AuthMiddleware, BookController.getBooks) 
+router.get('/book', BookController.getBooks)
 
 
 module.exports = router
