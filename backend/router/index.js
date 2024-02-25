@@ -32,8 +32,9 @@ router.get('/genre', GenreController.getAllGenres) // return authMiddleWare
 router.post('/book', uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
 // router.post('/book', BookController.createBook)
 
+// router.get('/book', AuthMiddleware, BookController.getBooks) 
+router.get('/book', BookController.getBooks) // return authMiddleWare
 // router.get('/book/:id', AuthMiddleware, BookController.getOneBook)
-
 
 
 module.exports = router

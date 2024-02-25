@@ -11,6 +11,19 @@ class BookController {
             next(error);
         }
     }
+
+    static async getBooks(req, res, next) {
+        try {
+            const params = req.query;
+
+            const books = await BookService.getBooks(params);
+            
+            return res.json(books)
+        } catch (error) {
+            console.error(error);
+            next(error)
+        }
+    }
 }
 
 module.exports = BookController;
