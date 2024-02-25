@@ -19,4 +19,8 @@ module.exports = class ApiError extends Error {
     static NotFound(message) {
         return new ApiError(404, message)
     }
+
+    static ServerError(message) {
+        return new ApiError(500, message)
+    }
 }

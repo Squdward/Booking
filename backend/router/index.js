@@ -10,6 +10,8 @@ const AuthorController = require('../controllers/author-contoller');
 const GenreController = require('../controllers/genre-controller');
 const ValidationGenreRules = require('../validationRules/genre');
 const { uploadBookCover } = require('../utils/imageRoutes');
+const CartController = require('../controllers/cart-controller');
+const ValidationCartRules = require('../validationRules/cart');
 const router = new Router();
 
 // Auth Block
@@ -31,6 +33,8 @@ router.post('/book', AuthMiddleware, uploadBookCover.single('img'), validationBo
 
 router.get('/book', AuthMiddleware, BookController.getBooks) 
 router.get('/book', BookController.getBooks)
+
+router.post('/cart', AuthMiddleware, ValidationCartRules.AddToCart(), ValidatorMiddleware, CartController.addToCart)
 
 
 module.exports = router
