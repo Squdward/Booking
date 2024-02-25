@@ -12,13 +12,7 @@ class CartService {
         return cart
     }
 
-    static async addToCart(token, body) {
-        if(!token) {
-            throw ApiError.UnauthorizedError('Token Error')
-        }
-
-        const userId = token.userId;
-
+    static async addToCart(userId, body) {
         let cart = await cartModel.findOneAndUpdate(
             { userId, 'products.product':  body.id },
             {

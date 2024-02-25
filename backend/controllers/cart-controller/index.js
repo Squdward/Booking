@@ -3,7 +3,7 @@ const CartService = require("../../services/cart-service");
 class CartController { 
     static async addToCart(req, res, next) { 
         try {
-            const cartData = await CartService.addToCart(req.user, req.body);
+            const cartData = await CartService.addToCart(req.user.id, req.body);
 
             return res.json(cartData)
         } catch (error) {
