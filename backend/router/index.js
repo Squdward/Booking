@@ -34,7 +34,8 @@ router.post('/book', AuthMiddleware, uploadBookCover.single('img'), validationBo
 router.get('/book', AuthMiddleware, BookController.getBooks) 
 router.get('/book', BookController.getBooks)
 
+// Cart
 router.post('/cart', AuthMiddleware, ValidationCartRules.AddToCart(), ValidatorMiddleware, CartController.addToCart)
-
+router.get('/cart', AuthMiddleware, CartController.getCart)
 
 module.exports = router

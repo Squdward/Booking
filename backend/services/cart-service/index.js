@@ -36,6 +36,29 @@ class CartService {
 
         return cart
     }
+
+    static async getCart(userId) {
+        const cart = await cartModel.find({userId}).populate({
+            path: "products.product",
+            model: "Book",
+            populate: [
+                {
+                    path: "author",
+                    select: "fullName",
+                },
+                {
+                    path: "genre"
+                },
+            ]
+
+        })
+
+        if(!cart) {
+            throw ApiError.NotFound("Cart with this userId was not foud")
+        }
+
+        return cart 
+    }
 }
 
 module.exports = CartService
