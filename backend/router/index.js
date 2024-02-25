@@ -12,6 +12,8 @@ const ValidationGenreRules = require('../validationRules/genre');
 const { uploadBookCover } = require('../utils/imageRoutes');
 const CartController = require('../controllers/cart-controller');
 const ValidationCartRules = require('../validationRules/cart');
+const FavouriteController = require('../controllers/favourite-controller');
+const ValidationFavouriteRules = require('../validationRules/favourite');
 const router = new Router();
 
 // Auth Block
@@ -37,5 +39,10 @@ router.get('/book', BookController.getBooks)
 // Cart
 router.post('/cart', AuthMiddleware, ValidationCartRules.AddToCart(), ValidatorMiddleware, CartController.addToCart)
 router.get('/cart', AuthMiddleware, CartController.getCart)
+
+// Favourite
+router.post('/favourite', AuthMiddleware, ValidationFavouriteRules.addToFavourite(), ValidatorMiddleware, FavouriteController.addToFavourite)
+router.get('/favourite', AuthMiddleware, FavouriteController.getFavourite)
+router.delete('/favourite/:favouriteId', AuthMiddleware, FavouriteController.removeFromFavourite)
 
 module.exports = router
