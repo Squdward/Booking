@@ -1,3 +1,9 @@
+:root {
+  --padding-sm: 12px;
+  --padding-md: 26px;
+  --padding-lg: 38px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;

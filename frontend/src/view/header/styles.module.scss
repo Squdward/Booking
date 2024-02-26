@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 0 var(--padding-md);
+}
+
+.logo {
+    min-width: 25%;
+}
+
+.search {
+    flex: 1 1 auto;
+}
+
+.navigation {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    min-width: 25%;
+}
