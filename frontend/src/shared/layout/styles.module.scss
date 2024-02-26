@@ -1,0 +1,24 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    flex: 1 1 auto;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    
+    aside {
+        min-width: 340px;
+    }
+
+    main {
+        flex: 1 1 auto;
+    }
+}
+
+footer {
+
+}

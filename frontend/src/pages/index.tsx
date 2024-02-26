@@ -4,6 +4,7 @@ import { Layout } from "../shared/layout";
 const RouterConfig = createBrowserRouter([
     {
         path: "/",
+        element: <Layout><div>Home</div></Layout>
     },
     {
         path: "/auth",
