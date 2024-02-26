@@ -1,9 +1,14 @@
 .header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 70px;
     padding: 0 var(--padding-md);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
 .logo {

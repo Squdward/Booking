@@ -1,0 +1,13 @@
+.sidebar {
+    width: 340px;
+    padding: 0 var(--padding-md);
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    padding: 10px 0;
+}

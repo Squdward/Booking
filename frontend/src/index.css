@@ -22,5 +22,6 @@ body {
 }
 
 #root {
+  display: flex;
   flex: 1;
 }
