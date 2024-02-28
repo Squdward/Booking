@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
+import { NotFoundPage } from "./404";
 
 const RouterConfig = createBrowserRouter([
     {
@@ -24,7 +25,7 @@ const RouterConfig = createBrowserRouter([
     },
     {
         path: "*",
-        element: <div>404</div>
+        element: <NotFoundPage/>
     }
 ])
 
