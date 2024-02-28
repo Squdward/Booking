@@ -10,8 +10,8 @@ export const TextContent = {
         [AuthTypes.login]: '/register',
     },
     content: {
-        [AuthTypes.register]: 'Already have an account? Login',
-        [AuthTypes.login]: "Don't have an account? Register",
+        [AuthTypes.register]: 'Уже есть аккаунт? Вход',
+        [AuthTypes.login]: "Нет аккаунта? Регистрация",
     }
 }
 
