@@ -12,8 +12,6 @@ const Layout:FC<PropsWithChildren> = ({children}) => {
                 <Sidebar/>
                 <main>{children}</main>
             </div>
-
-            <footer>footer</footer>
         </div>
     )
 }

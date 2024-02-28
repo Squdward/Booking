@@ -1,6 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Layout } from "../layout";
 import { NotFoundPage } from "./404";
+import { AuthPage } from "./auth";
+import { RegisterPage } from "./register";
 
 const RouterConfig = createBrowserRouter([
     {
@@ -9,7 +11,11 @@ const RouterConfig = createBrowserRouter([
     },
     {
         path: "/auth",
-        element: <div>Auth</div>
+        element: <AuthPage/>
+    },
+    {
+        path: "/register",
+        element: <RegisterPage/>
     },
     {
         path: "/book/:id",
