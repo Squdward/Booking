@@ -1,3 +1,5 @@
+import { IForm } from "./authForm";
+
 export const AuthTypes = {
     register: 'register',
     login: 'login'
@@ -15,3 +17,10 @@ export const TextContent = {
     }
 }
 
+export const isValidaEmail = (email:IForm['email']) => {
+    return email.includes('@') && email.trim().length > 4;
+}
+
+export const isValidaPassword = (password: IForm['password']) => {
+    return password.trim().length > 8 
+}

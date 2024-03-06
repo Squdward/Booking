@@ -3,16 +3,23 @@ import { Link } from "react-router-dom";
 import { TextContent } from "./config";
 import styles from "./styles.module.scss";
 import { useUnit } from "effector-react";
-import { $form, changeFieldEvent, onSubmitEvent } from "./model";
+import { $errors, $form, changeFieldEvent, changeType, clearError, onSubmitEvent } from "./model";
 import { IAuthForm, IForm, changeFieldType } from "./authForm";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
 const AuthForm: FC<IAuthForm> = ({ type }) => {
-    const [form, onChange, onSubmit] = useUnit([
+    const [form, onChange, onSubmit, formErrors, onFocus, setType] = useUnit([
         $form,
         changeFieldEvent,
         onSubmitEvent,
+        $errors,
+        clearError,
+        changeType,
     ]);
+
+    useEffect(() => {
+        setType(type)
+    },[]);
 
     const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -42,6 +49,8 @@ const AuthForm: FC<IAuthForm> = ({ type }) => {
                                 placeholder="Введите имя"
                                 name="name"
                                 radius="md"
+                                error={formErrors.name}
+                                onFocus={() => onFocus('name')}
                             />
                         )}
 
@@ -52,8 +61,9 @@ const AuthForm: FC<IAuthForm> = ({ type }) => {
                             label="Email"
                             placeholder="Введите email"
                             name="email"
-                            error={null}
                             radius="md"
+                            error={formErrors.email}
+                            onFocus={() => onFocus('email')}
                         />
 
                         <PasswordInput
@@ -63,8 +73,10 @@ const AuthForm: FC<IAuthForm> = ({ type }) => {
                             label="Пароль"
                             placeholder="Введите пароль"
                             name={"password"}
-                            error={null}
                             radius="md"
+                            error={formErrors.password}
+                            onFocus={() => onFocus('password')}
+
                         />
                     </Stack>
 
@@ -80,7 +92,7 @@ const AuthForm: FC<IAuthForm> = ({ type }) => {
                             </Link>
                         </Anchor>
 
-                        <Button onClick={onSubmit} type="button">
+                        <Button onClick={() => onSubmit(type)} type="button">
                             Отправить
                         </Button>
                     </Group>
