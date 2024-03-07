@@ -49,5 +49,7 @@ api.interceptors.response.use(
                 redirect('/auth')
             }
         }
+
+        return Promise.reject(error);
     }
 )
