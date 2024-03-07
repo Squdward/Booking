@@ -12,9 +12,9 @@ type AuthResponse = {
 
 const AuthController = {
     login: async (body: loginType): RequestConfig<AuthResponse> =>
-        api.post("/signin", { body }),
+        api.post("/signin", { ...body }),
     register: async (body: registerType): RequestConfig<AuthResponse> =>
-        api.post("/signup", { body }),
+        api.post("/signup", { ...body }),
 };
 
 export { AuthController };

@@ -22,5 +22,5 @@ export const isValidaEmail = (email:IForm['email']) => {
 }
 
 export const isValidaPassword = (password: IForm['password']) => {
-    return password.trim().length > 8 
+    return password.trim().length > 4
 }
