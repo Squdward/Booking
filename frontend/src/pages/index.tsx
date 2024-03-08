@@ -3,6 +3,7 @@ import { Layout } from "../layout";
 import { NotFoundPage } from "./404";
 import { AuthPage } from "./auth";
 import { RegisterPage } from "./register";
+import { ProtectedRoute } from "../shared/AuthProviders";
 
 const RouterConfig = createBrowserRouter([
     {
@@ -23,11 +24,17 @@ const RouterConfig = createBrowserRouter([
     },
     {
         path: "/cart",
-        element: <div>Cart</div>
+        element: 
+            <ProtectedRoute>
+                <div>Cart</div>
+            </ProtectedRoute>
     },
     {
         path: "/profile",
-        element: <div>Profile</div>
+        element: 
+            <ProtectedRoute>
+                <div>Profile</div>
+            </ProtectedRoute>
     },
     {
         path: "*",
