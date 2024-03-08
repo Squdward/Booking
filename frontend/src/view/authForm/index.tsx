@@ -92,7 +92,7 @@ const AuthForm: FC<IAuthForm> = ({ type }) => {
                             </Link>
                         </Anchor>
 
-                        <Button onClick={() => onSubmit(type)} type="button">
+                        <Button onClick={() => onSubmit()} type="button">
                             Отправить
                         </Button>
                     </Group>

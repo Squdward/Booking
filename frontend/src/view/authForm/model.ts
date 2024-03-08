@@ -1,9 +1,10 @@
-import { attach, createEffect, createEvent, createStore, sample } from "effector";
+import { attach, createEvent, createStore, sample } from "effector";
 import { AuthType, IForm, IFormErrors, changeFieldType } from "./authForm";
 import { AuthTypes, isValidaEmail, isValidaPassword } from "./config";
 import { loginFx, registerFx } from "../../utils/api/effects/login";
-import { userLogin } from "../../features/user/model";
-import { redirect } from "react-router-dom";
+import { userLogin } from "../../store/user/model";
+import { notifications } from "@mantine/notifications";
+import axios from "axios";
 
 const DEFAULT_FORM: IFormErrors = {
     email: null,
@@ -55,6 +56,8 @@ const $isValidForms = $errors.map((errors) =>
 // Произвести редирект со страницы на которую пользователь пришел
 // Починить типы 
 
+
+// Проверям на наличие ошибок
 sample({
     clock: onSubmitEvent,
     source: { form: $form, endPointType: $endPointType },
@@ -72,6 +75,7 @@ sample({
     target: $errors,
 });
 
+// Отправляем на авторизацию
 sample({
     clock: onSubmitEvent,
     source: {
@@ -82,9 +86,10 @@ sample({
     filter: ({ endPointType, isValid }) =>
         endPointType === AuthTypes.login && isValid,
     fn: ({ form }) => ({ email: form.email, password: form.password }),
-    target: loginFx,
+    target: authFx,
 });
 
+// Отправляем на регистрацию
 sample({
     clock: onSubmitEvent,
     source: {
@@ -94,45 +99,27 @@ sample({
     },
     filter: ({ endPointType, isValid }) =>
         endPointType === AuthTypes.register && isValid,
-    fn: ({ form }) => form,
+    fn: ({ form }) => form as Required<IForm>,
     target: registrFx,
 });
 
-
-// sample({
-//     clock: authFx.pending,
-//     fn: () => {
-//         console.log('pending')
-//     }
-// })
-
-authFx.pending.watch((response) => {
-    console.log('response', response)
+// Передаем данные в UserLogin
+sample({
+    clock: [authFx.doneData, registerFx.doneData],
+    target: userLogin
 })
 
-authFx.done.watch((response) => {
-    console.log('done', response)
+// Обрабатываем ошибку 
+authFx.fail.watch(error => {
+    if(axios.isAxiosError(error.error)) {
+        const errorMessage = error.error?.response?.data?.message ?? 'Unknow error';
+
+        notifications.show({
+            title: 'Error',
+            message: errorMessage,
+            autoClose: false,
+        })
+    } 
+
+    console.error(error.error)
 })
-
-authFx.doneData.watch((response) => {
-    console.log('doneData', response)
-})
-
-authFx.finally.watch((response) => {
-    console.log('finally', response)
-})
-
-// sample({
-//     clock: [authFx.done, registerFx.done],
-//     fn: (val) => {
-//         console.log('values', val)
-//     },
-//     target: userLogin
-// })
-
-// sample({
-//     clock: [authFx.finally, registerFx.finally],
-//     target: createEffect(() => {
-//         redirect('/')
-//     })
-// })

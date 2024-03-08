@@ -1,7 +1,7 @@
-import axios from "axios";
-import { redirect } from "react-router-dom";
-import { refreshToken } from "./request/refresh";
+import axios, { AxiosResponse } from "axios";
+import { RefreshTokenConfig } from "./request/refresh";
 import { Token } from "../tokens";
+import { unauthUser } from "../../store/user/model";
 
 
 export const BASE_API_NAME = 'http://localhost:31299/api';
@@ -38,15 +38,18 @@ api.interceptors.response.use(
 
         try {
             if(status == 401) {
-                const response = await refreshToken({withCredentials: true})
+                const response: AxiosResponse<RefreshTokenConfig> = await axios.get(`${BASE_API_NAME}/refresh`, {withCredentials: true})
 
                 Token.setToken(response.data.accesToken)
 
                 return api.request(baseConfig);
             }
         } catch (error) {
-            if(error == 401) {
-                redirect('/auth')
+            if(axios.isAxiosError(error) && error?.response?.status == 401) {
+                unauthUser();
+
+                // redirect('/auth')
+
             }
         }
 
