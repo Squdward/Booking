@@ -1,9 +1,20 @@
+import { useEffect } from 'react'
 import './App.css'
-import { CreateBookPage } from './pages/admin/createBook'
+import { useUnit } from 'effector-react'
+import { checkAuth } from './store/user/model';
+import { RouterProvider } from 'react-router-dom';
+import { RouterConfig } from './pages';
+
 
 function App() {
+  const touch = useUnit(checkAuth);
+
+  useEffect(() => {
+    touch()
+  }, [])
+
   return (
-    <CreateBookPage/>
+    <RouterProvider router={RouterConfig}/>
   )
 }
 
