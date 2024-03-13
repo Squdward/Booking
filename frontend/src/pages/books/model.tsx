@@ -13,7 +13,7 @@ export const setPage = createEvent<number>();
 export const $books = createStore<IBook[] | null>(null);
 export const $pagination = createStore<IPagination>({
     page: "1",
-    limit: "2",
+    limit: "12",
     totalPages: "1",
 });
 

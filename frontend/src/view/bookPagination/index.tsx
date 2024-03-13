@@ -4,6 +4,8 @@ import { useUnit } from "effector-react"
 
 const BookPagination = () => {
     const [pagination, onChangePage] = useUnit([$pagination, setPage])
+    
+    if(pagination.totalPages === 1 ) return 
 
     return (
         <Pagination
