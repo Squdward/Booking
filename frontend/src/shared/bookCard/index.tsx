@@ -31,9 +31,13 @@ const BookCard: FC<IBookCard> = (props) => {
                 <Text lineClamp={4} fz="sm" mt="xs">
                     {props.description}
                 </Text>
+
+                <Text lineClamp={4} fz="sm" mt="xs">
+                    {props.price}☀
+                </Text>
             </Card.Section>
 
-            <Group mt="xs">
+            <Group mt="auto">
                 <Button onClick={props.onButtonClick} radius="md" style={{ flex: 1 }}>
                     Купить
                 </Button>

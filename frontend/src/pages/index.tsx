@@ -6,11 +6,16 @@ import { ProtectedRoute } from "../shared/AuthProviders";
 import { Books } from "./books";
 import { Layout } from "../layout";
 import { fetchBooks } from "./books/model";
+import { CreateBook } from "../view/createBook";
 
 const RouterConfig = createBrowserRouter([
     {
         path: "/",
         element: <Navigate to="/books"/>,
+    },
+    {
+        path: "/create",
+        element: <CreateBook/>
     },
     {
         path: "/books",
