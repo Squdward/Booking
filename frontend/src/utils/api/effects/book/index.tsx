@@ -6,7 +6,7 @@ const BookEffects = {
     getBooks: createEffect(async (params?: Partial<IBookQueryParams>) => {
         const books = await BookRequest.getBooks(params);
 
-        return books.data.books
+        return books.data
     }),
 }
 

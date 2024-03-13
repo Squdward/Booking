@@ -1,13 +1,17 @@
 import { BookList } from "../../view/BookList"
+import { BookPagination } from "../../view/bookPagination"
+import styles from "./index.module.scss"
 
 const Books = () => {
     return (
-        <section>
+        <section className={styles.page}>
             {/* Sort & filters */}
             
             <BookList/>
-
-            {/* Pagination */}
+            
+            <div className={styles.pagination}>
+                <BookPagination/>
+            </div>
         </section>
     )
 }

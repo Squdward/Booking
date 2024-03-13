@@ -1,5 +1,6 @@
 import { IAuthor } from "./author";
 import { IGenre } from "./genre";
+import { IPagination } from "./pagination";
 
 export interface IBook {
     _id: string,
@@ -23,4 +24,12 @@ interface IBookQueryParams {
     minPrice: number,
     maxPrice: number,
     genre: string | Array<string>
+    page: string | number,
+    limit: string | number,
+}
+
+export interface IBookResponse {
+    books: IBook[],
+    totalPages: string,
+    currentPage: string,
 }
