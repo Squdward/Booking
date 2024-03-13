@@ -33,7 +33,6 @@ router.get('/genre', AuthMiddleware, GenreController.getAllGenres)
 // Book
 router.post('/book', AuthMiddleware, uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
 
-router.get('/book', AuthMiddleware, BookController.getBooks) 
 router.get('/book', BookController.getBooks)
 
 // Cart
