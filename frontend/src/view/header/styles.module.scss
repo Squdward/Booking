@@ -7,8 +7,10 @@
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    padding: 0 var(--padding-md);
+    padding: 0 var(--offset-x4);
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    background: white;
+    z-index: 1;
 }
 
 .logo {
