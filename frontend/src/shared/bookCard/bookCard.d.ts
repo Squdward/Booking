@@ -1,6 +1,6 @@
-import { IBook } from "../../types/book";
+import { IBookStore } from "../../types/book";
 
-export interface IBookCard extends IBook {
-    onButtonClick: () => void,
-    onIconClick: () => void     
+export interface IBookCard extends IBookStore {
+    onButtonClick: (id) => void,
+    onIconClick: (id) => void     
 }

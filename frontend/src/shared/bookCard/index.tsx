@@ -6,6 +6,14 @@ import { Link } from "react-router-dom";
 import { IBookCard } from "./bookCard";
 
 const BookCard: FC<IBookCard> = (props) => {
+    const onButtonClickHandler = () => {
+        return props.onButtonClick(props._id)
+    }
+
+    const onIconClickHandler = () => {
+        return props.onIconClick(props._id)
+    }
+
     return (
         <Card withBorder radius="md" p="md" className={styles.card}>
             <Card.Section>
@@ -38,11 +46,11 @@ const BookCard: FC<IBookCard> = (props) => {
             </Card.Section>
 
             <Group mt="auto">
-                <Button onClick={props.onButtonClick} radius="md" style={{ flex: 1 }}>
-                    Купить
+                <Button variant={props?.inCart ? "outline" : "filled"} onClick={onButtonClickHandler} radius="md" style={{ flex: 1 }}>
+                    {props?.inCart ? 'Товар в корзине' : "Купить"}
                 </Button>
                 <ActionIcon variant="default" radius="md" size={36}>
-                    <IconHeart onClick={props.onIconClick} className={styles.like} stroke={1.5} />
+                    <IconHeart onClick={onIconClickHandler} className={styles.like} stroke={1.5} />
                 </ActionIcon>
             </Group>
         </Card>

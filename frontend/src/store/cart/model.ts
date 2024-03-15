@@ -4,7 +4,6 @@ import { $user } from "../user/model";
 import { RouterConfig } from "../../pages";
 import { CartEffects } from "../../utils/api/effects/cart";
 import { notifications } from "@mantine/notifications";
-import { addedToCard } from "../../pages/books/model";
 
 export const addToCartFX = attach({effect: CartEffects.addToCart});
 export const addToCart = createEvent<IBook['_id']>();

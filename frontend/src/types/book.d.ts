@@ -1,6 +1,5 @@
 import { IAuthor } from "./author";
 import { IGenre } from "./genre";
-import { IPagination } from "./pagination";
 
 export interface IBook {
     _id: string,
@@ -10,6 +9,10 @@ export interface IBook {
     price: number,
     author: IAuthor,
     genre: IGenre | IGenre[]
+}
+
+export interface IBookStore extends IBook {
+    inCart?: boolean,
 }
 
 export interface IBookCreate extends IBook {

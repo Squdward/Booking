@@ -4,8 +4,9 @@ import { ICartResponse } from "../../../../types/cart";
 import { api } from "../../instanse";
 
 const CartRequest = {
-    addToCart: async (id: IBook["_id"]): RequestConfig<ICartResponse> => {
-        return api.post("/cart", { id, quantity: 1});
+    endpointName: '/cart',
+    addToCart: async function(id: IBook["_id"]): RequestConfig<ICartResponse> {
+        return api.post(this.endpointName, { id, quantity: 1});
     },
 };
 
