@@ -1,41 +1,31 @@
-import { useState } from "react"
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.scss";
+import { $sidebarLinks } from "./model";
+import { useUnit } from "effector-react";
 
 const Sidebar = () => {
-    const [list] = useState([
-        {
-            "title": "Классика"
-        },
-        {
-            "title": "Наука"
-        },
-        {
-            "title": "Историческая проза"
-        },
-        {
-            "title": "Драма"
-        },
-        {
-            "title": "Фантастика"
-        },
-        {
-            "title": "Художественная литература"
-        },
-        {
-            "title": "Антиутопия"
-        },
-    ]);
+    const [links] = useUnit([$sidebarLinks]);
 
     return (
         <aside className={styles.sidebar}>
             <nav className={styles.links}>
-                {!!list.length && list.map( genre => {
-                    return <Link className={styles.link} to="/123h1y7826y78y1872">{genre.title}</Link>
-                })}
+                {!!links &&
+                    links.length > 0 &&
+                    links.map((genre) => {
+                        return (
+                            <Link
+                                key={genre._id}
+                                className={styles.link}
+                                to={`/books/${genre._id}`}
+                            >
+                                {genre.title}
+                            </Link>
+                        );
+                    })}
             </nav>
         </aside>
-    )
-}
+    );
+};
 
-export {Sidebar}
+export { Sidebar };

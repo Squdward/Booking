@@ -1,17 +1,11 @@
-import { useEffect } from 'react'
 import './App.css'
-import { useUnit } from 'effector-react'
-import { checkAuth } from './store/user/model';
 import { RouterProvider } from 'react-router-dom';
 import { RouterConfig } from './pages';
+import { useAppInit } from './shared/hooks/useAppInit';
 
 
 function App() {
-  const touch = useUnit(checkAuth);
-
-  useEffect(() => {
-    touch()
-  }, [])
+  useAppInit();
 
   return (
     <RouterProvider router={RouterConfig}/>
