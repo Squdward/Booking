@@ -1,7 +1,7 @@
 import { Button, FileInput, Input, Stack, Textarea } from "@mantine/core";
 import { AuthorSelect } from "./authorSelect";
-import { BookRequest } from "../../utils/api/request/book";
 import { GenreSelect } from "./genreSelect";
+import { BookRequest } from "../../shared/api/request/book";
 
 interface FormElements extends HTMLFormControlsCollection {
     title: HTMLInputElement;

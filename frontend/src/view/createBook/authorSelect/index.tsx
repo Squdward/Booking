@@ -1,6 +1,6 @@
 import { ComboboxData, Select, SelectProps } from "@mantine/core"
 import { FC, useEffect, useState } from "react"
-import { AuthorRequest } from "../../../utils/api/request/author";
+import { AuthorRequest } from "../../../shared/api/request/author";
 
 const AuthorSelect:FC<SelectProps> = (props) => {
     const [options, setOptions] = useState<ComboboxData>();

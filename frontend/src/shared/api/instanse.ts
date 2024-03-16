@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 import { RefreshTokenConfig } from "./request/refresh";
-import { Token } from "../tokens";
+import { Token } from "./tokens";
 import { unauthUser } from "../../store/user/model";
 
 

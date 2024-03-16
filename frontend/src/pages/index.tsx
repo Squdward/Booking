@@ -2,11 +2,11 @@ import { Navigate, createBrowserRouter } from "react-router-dom";
 import { NotFoundPage } from "./404";
 import { AuthPage } from "./auth";
 import { RegisterPage } from "./register";
-import { ProtectedRoute } from "../shared/AuthProviders";
+import { ProtectedRoute } from "../shared/router/AuthProviders";
 import { Books } from "./books";
-import { Layout } from "../layout";
 import { BookLoader } from "./books/model";
 import { CreateBook } from "../view/createBook";
+import { Layout } from "../shared/ui/layout";
 
 const RouterConfig = createBrowserRouter([
     {

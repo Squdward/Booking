@@ -1,9 +1,9 @@
 import { attach, createEvent, createStore, sample } from "effector";
 import { IBook, IBookQueryParams } from "../../types/book";
 import { notifications } from "@mantine/notifications";
-import { BookEffects } from "../../utils/api/effects/book";
 import { IPagination } from "../../types/pagination";
 import { LoaderFunctionArgs } from "react-router-dom";
+import { BookEffects } from "../../shared/api/effects/book";
 
 const getBooksFX = attach({ effect: BookEffects.getBooks });
 

@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import { Search } from "../../features/search"
+import { Search } from "../../../features/search"
 import { IconShoppingBag, IconUserCircle } from "@tabler/icons-react";
 import styles from "./styles.module.scss";
 

@@ -1,6 +1,6 @@
 import { attach, createEvent, createStore, sample } from "effector";
-import { GenresEffects } from "../../utils/api/effects/genres";
-import { IGenre } from "../../types/genre";
+import { IGenre } from "../../../types/genre";
+import { GenresEffects } from "../../api/effects/genres";
 
 const getGenresFX = attach({effect: GenresEffects.getAll})
 export const getGenres = createEvent();

@@ -2,8 +2,8 @@ import { attach, createEffect, createEvent, createStore, sample } from "effector
 import { IBook } from "../../types/book";
 import { $user } from "../user/model";
 import { RouterConfig } from "../../pages";
-import { CartEffects } from "../../utils/api/effects/cart";
 import { notifications } from "@mantine/notifications";
+import { CartEffects } from "../../shared/api/effects/cart";
 
 export const addToCartFX = attach({effect: CartEffects.addToCart});
 export const addToCart = createEvent<IBook['_id']>();

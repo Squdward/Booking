@@ -6,7 +6,7 @@ import { Notifications } from "@mantine/notifications";
 
 const theme = createTheme({});
 
-const Providers: FC<PropsWithChildren> = ({children}) => {
+const AppProviders: FC<PropsWithChildren> = ({children}) => {
     return (
         <MantineProvider theme={theme}>
             <Notifications position="top-right" />
@@ -15,4 +15,4 @@ const Providers: FC<PropsWithChildren> = ({children}) => {
     )
 } 
 
-export {Providers}
+export {AppProviders as Providers}

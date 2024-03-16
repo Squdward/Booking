@@ -1,7 +1,7 @@
 import { useUnit } from "effector-react"
 import { FC, PropsWithChildren } from "react"
 import { Navigate } from "react-router-dom"
-import { $user } from "../../store/user/model"
+import { $user } from "../../../store/user/model"
 
 const ProtectedRoute:FC<PropsWithChildren> = ({children}) => {
     const user = useUnit($user)

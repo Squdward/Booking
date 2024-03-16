@@ -1,10 +1,10 @@
 import { attach, createEvent, createStore, sample } from "effector";
 import { AuthType, IForm, IFormErrors, changeFieldType } from "./authForm";
 import { AuthTypes, isValidaEmail, isValidaPassword } from "./config";
-import { loginFx, registerFx } from "../../utils/api/effects/login";
 import { userLogin } from "../../store/user/model";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
+import { loginFx, registerFx } from "../../shared/api/effects/login";
 
 const DEFAULT_FORM: IFormErrors = {
     email: null,

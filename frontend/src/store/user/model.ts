@@ -1,7 +1,7 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { IUserStore, IUserView } from "../../types/user";
-import { refreshToken } from "../../utils/api/request/refresh";
-import { Token } from "../../utils/tokens";
+import { refreshToken } from "../../shared/api/request/refresh";
+import { Token } from "../../shared/api/tokens";
 
 export const touchFX = createEffect(async () => {
     const tokenResponse = await refreshToken();

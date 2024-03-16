@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { Providers } from './shared/providers/index.tsx'
+import { Providers } from './shared/router/providers/index.tsx'
 import App from './App.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

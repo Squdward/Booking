@@ -1,6 +1,6 @@
 import { ComboboxData, MultiSelect, MultiSelectProps } from "@mantine/core"
 import { FC, useEffect, useState } from "react"
-import { GenreRequest } from "../../../utils/api/request/genre"
+import { GenreRequest } from "../../../shared/api/request/genre"
 
 const GenreSelect:FC<MultiSelectProps> = (props) => {
     const [options, setOptions] = useState<ComboboxData>()

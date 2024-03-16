@@ -1,6 +1,6 @@
 import { createEffect } from "effector";
 import { AuthController } from "../../request/login";
-import { Token } from "../../../tokens";
+import { Token } from "../../tokens";
 import { loginType, registerType } from "../../../../types/auth";
 
 export const loginFx = createEffect(async (body: loginType) => {
