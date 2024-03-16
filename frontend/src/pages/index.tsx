@@ -5,63 +5,72 @@ import { RegisterPage } from "./register";
 import { ProtectedRoute } from "../shared/AuthProviders";
 import { Books } from "./books";
 import { Layout } from "../layout";
-import { fetchBooks } from "./books/model";
+import { BookLoader } from "./books/model";
 import { CreateBook } from "../view/createBook";
 
 const RouterConfig = createBrowserRouter([
     {
         path: "/",
-        element: <Navigate to="/books"/>,
+        element: <Navigate to="/books" />,
     },
     {
         path: "/create",
-        element: <CreateBook/>
+        element: <CreateBook />,
     },
     {
         path: "/books",
-        loader: () => {
-            fetchBooks()
-            
-            return null
-        },
-        element: <Layout>
-            <Books/>
-        </Layout>
+        loader: BookLoader,
+        element: (
+            <Layout>
+                <Books />
+            </Layout>
+        ),
+    },
+    {
+        path: "/books/:id",
+        loader: BookLoader,
+        element: (
+            <Layout>
+                <Books />
+            </Layout>
+        ),
     },
     {
         path: "/auth",
-        element: <AuthPage/>
+        element: <AuthPage />,
     },
     {
         path: "/register",
-        element: <RegisterPage/>
+        element: <RegisterPage />,
     },
     {
         path: "/book/:id",
-        element: <div>book with id</div>
+        element: <div>book with id</div>,
     },
     {
         path: "/author/:id",
-        element: <div>author with id</div>
+        element: <div>author with id</div>,
     },
     {
         path: "/cart",
-        element: 
+        element: (
             <ProtectedRoute>
                 <div>Cart</div>
             </ProtectedRoute>
+        ),
     },
     {
         path: "/profile",
-        element: 
+        element: (
             <ProtectedRoute>
                 <div>Profile</div>
             </ProtectedRoute>
+        ),
     },
     {
         path: "*",
-        element: <NotFoundPage/>
-    }
-])
+        element: <NotFoundPage />,
+    },
+]);
 
-export {RouterConfig}
+export { RouterConfig };

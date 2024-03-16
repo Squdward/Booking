@@ -1,6 +1,5 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 import { IUserStore, IUserView } from "../../types/user";
-import { debug } from "patronum";
 import { refreshToken } from "../../utils/api/request/refresh";
 import { Token } from "../../utils/tokens";
 
@@ -27,6 +26,3 @@ sample({
     clock: checkAuth,
     target: touchFX,
 })
-
-
-debug($user)
