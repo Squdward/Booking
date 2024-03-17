@@ -14,6 +14,7 @@ const CartController = require('../controllers/cart-controller');
 const ValidationCartRules = require('../validationRules/cart');
 const FavouriteController = require('../controllers/favourite-controller');
 const ValidationFavouriteRules = require('../validationRules/favourite');
+const SearchController = require('../controllers/search-controller');
 const router = new Router();
 
 // Auth Block
@@ -32,7 +33,6 @@ router.get('/genre', AuthMiddleware, GenreController.getAllGenres)
 
 // Book
 router.post('/book', AuthMiddleware, uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
-
 router.get('/book', BookController.getBooks)
 
 // Cart
@@ -44,5 +44,8 @@ router.delete('/cart/:cartId', AuthMiddleware, CartController.removeFromCart)
 router.post('/favourite', AuthMiddleware, ValidationFavouriteRules.addToFavourite(), ValidatorMiddleware, FavouriteController.addToFavourite)
 router.get('/favourite', AuthMiddleware, FavouriteController.getFavourite)
 router.delete('/favourite/:favouriteId', AuthMiddleware, FavouriteController.removeFromFavourite)
+
+// search
+router.get('/search', SearchController.search);
 
 module.exports = router
