@@ -29,7 +29,7 @@ router.get('/author', AuthMiddleware, AuthorController.getAuthors)
 
 // Genre
 router.post('/genre', AuthMiddleware, ValidationGenreRules.createGenre(), ValidatorMiddleware, GenreController.createGenre)
-router.get('/genre', AuthMiddleware, GenreController.getAllGenres)
+router.get('/genre', GenreController.getAllGenres)
 
 // Book
 router.post('/book', AuthMiddleware, uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
