@@ -11,9 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mantine/core": "^7.5.3",
-    "@mantine/hooks": "^7.5.3",
-    "@mantine/notifications": "^7.5.3",
+    "@mantine/core": "^7.6.2",
+    "@mantine/hooks": "^7.6.2",
+    "@mantine/notifications": "^7.6.2",
     "@tabler/icons-react": "^2.47.0",
     "axios": "^1.6.7",
     "effector": "^23.2.0",

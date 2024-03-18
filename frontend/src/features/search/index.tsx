@@ -1,31 +1,35 @@
-import { ActionIcon, TextInput, TextInputProps, rem } from "@mantine/core";
-import { IconArrowRight, IconSearch } from "@tabler/icons-react";
+import { useUnit } from "effector-react";
 import { FC } from "react";
+import { $isLoading, $searchResult, searchChange } from "./model";
+import { CustomCombobox } from "../../shared/ui/search";
 
-const Search:FC<TextInputProps> = (props) => {
+const HeaderSearch: FC<{
+    className: string;
+}> = (props) => {
+    const [data, onChange, isLoading] = useUnit([
+        $searchResult,
+        searchChange,
+        $isLoading,
+    ]);
+
     return (
-        <TextInput
-            radius="sm"
-            size="md"
-            placeholder="Search questions"
-            rightSectionWidth={42}
-            leftSection={
-                <IconSearch
-                    style={{ width: rem(18), height: rem(18) }}
-                    stroke={1.5}
-                />
-            }
-            rightSection={
-                <ActionIcon size={32} radius="sm" variant="filled">
-                    <IconArrowRight
-                        style={{ width: rem(18), height: rem(18) }}
-                        stroke={1.5}
-                    />
-                </ActionIcon>
-            }
-            {...props}
+        <CustomCombobox
+            onInputChange={onChange}
+            // options={[
+            //     {
+            //         label: "1",
+            //         value: "2",
+            //         fullname: "string",
+            //     },
+            //     {
+            //         label: "3",
+            //         value: "1",
+            //         fullname: "stasadg",
+            //     },
+            // ]}
+            options={['15', '12', '123']}
         />
     );
 };
 
-export { Search };
+export { HeaderSearch };

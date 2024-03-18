@@ -8,6 +8,12 @@ const BookEffects = {
 
         return books.data
     }),
+
+    searchBook: createEffect(async (title: IBookQueryParams['title']) => {
+        const searchResult = await BookRequest.search(title);
+
+        return searchResult.data;
+    })
 }
 
 export {BookEffects}

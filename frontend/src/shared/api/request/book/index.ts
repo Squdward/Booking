@@ -1,5 +1,10 @@
 import { RequestConfig } from "../../../../types/api";
-import { IBookCreate, IBookQueryParams, IBookResponse } from "../../../../types/book";
+import {
+    IBook,
+    IBookCreate,
+    IBookQueryParams,
+    IBookResponse,
+} from "../../../../types/book";
 import { api } from "../../instanse";
 
 const BookRequest = {
@@ -12,6 +17,9 @@ const BookRequest = {
     getBooks: async (
         params?: Partial<IBookQueryParams>
     ): RequestConfig<IBookResponse> => await api.get("/book", { params }),
+
+    search: async (title: IBookQueryParams["title"]):RequestConfig<IBook[]> =>
+        await api.get("/search", { params: {title, limit: 5}, }),
 };
 
 export { BookRequest };
