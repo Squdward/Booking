@@ -35,7 +35,7 @@ class CartService {
             throw ApiError.ServerError('An error occurred during the request')
         }
 
-        return cart
+        return cart.products.find( ({product}) => product.toString() === body.id )
     }
 
     static async getCart(userId) {
@@ -77,6 +77,15 @@ class CartService {
         }
 
         return removedCart;
+    }
+
+    static async includes(userId, productId) {
+        const product = cartModel.find({
+            userId,
+            'products.product': productId,
+        });
+
+        return product
     }
 }
 

@@ -3,6 +3,8 @@ const bookModel = require("../../models/book-model");
 const ApiError = require("../../utils/apiError");
 const FileService = require("../file-service");
 const deepmerge = require("../../utils/deepmerge");
+const cartModel = require("../../models/cart-model");
+const CartService = require("../cart-service");
 class BookService {
     static async createBook(body, file) {
         const bookData = await bookModel.findOne({ title: body.title });
@@ -24,7 +26,7 @@ class BookService {
         return book;
     }
 
-    static async getOneBook(id) {
+    static async getOneBook(id, userId) {
         if (!isValidObjectId(id)) {
             throw ApiError.BadRequest("Incorrect id");
         }
@@ -34,6 +36,14 @@ class BookService {
 
         if (!populatedData) {
             throw ApiError.NotFound("Book with this id was not found");
+        }
+
+        if(userId) {
+            const bookId = populatedData._id;
+
+            const inCart = await CartService.includes(userId, bookId);
+            
+            return populatedData
         }
 
         return populatedData;

@@ -15,6 +15,7 @@ const ValidationCartRules = require('../validationRules/cart');
 const FavouriteController = require('../controllers/favourite-controller');
 const ValidationFavouriteRules = require('../validationRules/favourite');
 const SearchController = require('../controllers/search-controller');
+const { SoftAuthMiddleware } = require('../middlwares/softAuthMiddleware');
 const router = new Router();
 
 // Auth Block
@@ -33,7 +34,8 @@ router.get('/genre', GenreController.getAllGenres)
 
 // Book
 router.post('/book', AuthMiddleware, uploadBookCover.single('img'), validationBookRules.createBook(), ValidatorMiddleware, BookController.createBook)
-router.get('/book', BookController.getBooks)
+router.get('/book', SoftAuthMiddleware, BookController.getBooks)
+router.get('/book/:id', SoftAuthMiddleware, BookController.getBook)
 
 // Cart
 router.post('/cart', AuthMiddleware, ValidationCartRules.AddToCart(), ValidatorMiddleware, CartController.addToCart)

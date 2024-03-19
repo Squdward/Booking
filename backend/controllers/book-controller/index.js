@@ -24,6 +24,20 @@ class BookController {
             next(error)
         }
     }
+
+    static async getBook(req, res, next) {
+        try {
+            const {id} = req.params;
+            const userId = req?.user?.userId
+
+            const book = await BookService.getOneBook(id, userId);
+
+            return res.json(book)
+        } catch (error) {
+            console.error(error);
+            next(error)
+        }
+    }
 }
 
 module.exports = BookController;
