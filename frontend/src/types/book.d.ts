@@ -8,7 +8,7 @@ export interface IBook {
     img: string,
     price: number,
     author: IAuthor,
-    genre: IGenre | IGenre[]
+    genre: IGenre[]
 }
 
 export interface IBookStore extends IBook {

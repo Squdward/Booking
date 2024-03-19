@@ -3,13 +3,16 @@ import styles from "./styles.module.scss";
 import { Sidebar } from "../sidebar";
 import { Header } from "../header";
 
-const Layout:FC<PropsWithChildren> = ({children}) => {
+interface ILayout {
+    sidebar?: boolean,
+}
+const Layout:FC<ILayout & PropsWithChildren> = ({children, sidebar=true}) => {
     return (
         <div className={styles.layout}>
             <Header/>
 
             <div className={styles.content}>
-                <Sidebar/>
+                {sidebar && <Sidebar/>}
                 <main>{children}</main>
             </div>
         </div>

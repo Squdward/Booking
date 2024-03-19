@@ -18,8 +18,12 @@ const BookRequest = {
         params?: Partial<IBookQueryParams>
     ): RequestConfig<IBookResponse> => await api.get("/book", { params }),
 
-    search: async (title: IBookQueryParams["title"]):RequestConfig<IBook[]> =>
-        await api.get("/search", { params: {title, limit: 5}, }),
+    search: async (title: IBookQueryParams["title"]): RequestConfig<IBook[]> =>
+        await api.get("/search", { params: { title, limit: 5 } }),
+
+    getOneBook: async (id: IBook["_id"]): RequestConfig<IBook> => {
+        return await api.get(`/book/${id}`);
+    },
 };
 
 export { BookRequest };

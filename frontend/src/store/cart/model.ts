@@ -8,7 +8,7 @@ import { CartEffects } from "../../shared/api/effects/cart";
 export const addToCartFX = attach({effect: CartEffects.addToCart});
 export const addToCart = createEvent<IBook['_id']>();
 
-export const $cart = createStore(new Set());
+export const $addedToCart = createStore<Set<IBook['_id']>>(new Set());
 
 //#region  Логика добавления товара в корзину 
 
@@ -37,6 +37,13 @@ sample({
     }),
 })
 
+$addedToCart.on(addToCartFX.doneData, (store, payload) =>  {
+    const clone = new Set(Array.from(store));
+
+    clone.add(payload.product);
+
+    return clone
+})
 
 //#region  Слушатели с сайд эффектами
 addToCartFX.doneData.watch(() => {
