@@ -1,14 +1,13 @@
 import { FC } from "react";
-import { ActionIcon, Button, Card, Group, Image, Text } from "@mantine/core";
+import { ActionIcon, Card, Group, Image, Text } from "@mantine/core";
 import styles from "./index.module.scss";
 import { IconHeart } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { IBookCard } from "./bookCard";
+import { CURRENCY } from "../constant";
+import { AddToCartButton } from "../../features/cart/ui/addToCartButton";
 
 const BookCard: FC<IBookCard> = (props) => {
-    const onButtonClickHandler = () => {
-        return props.onButtonClick(props._id)
-    }
 
     const onIconClickHandler = () => {
         return props.onIconClick(props._id)
@@ -17,12 +16,14 @@ const BookCard: FC<IBookCard> = (props) => {
     return (
         <Card withBorder radius="md" p="md" className={styles.card}>
             <Card.Section>
-                <Image
-                    src={`https://raw.githubusercontent.com/Squdward/Booking/main/backend/uploads/${props.img}`}
-                    alt={props.title}
-                    fit="contain"
-                    height={180}
-                />
+                <Link to={`/book/${props._id}`}>
+                    <Image
+                        src={`https://raw.githubusercontent.com/Squdward/Booking/main/backend/uploads/${props.img}`}
+                        alt={props.title}
+                        fit="contain"
+                        height={180}
+                    />
+                </Link>
             </Card.Section>
 
             <Card.Section className={styles.section} mt="md">
@@ -41,14 +42,12 @@ const BookCard: FC<IBookCard> = (props) => {
                 </Text>
 
                 <Text lineClamp={4} fz="sm" mt="xs">
-                    {props.price}☀
+                    {props.price}{CURRENCY}
                 </Text>
             </Card.Section>
 
             <Group mt="auto">
-                <Button variant={props?.inCart ? "outline" : "filled"} onClick={onButtonClickHandler} radius="md" style={{ flex: 1 }}>
-                    {props?.inCart ? 'Товар в корзине' : "Купить"}
-                </Button>
+                <AddToCartButton style={{ flex: 1 }} id={props._id}/>
                 <ActionIcon variant="default" radius="md" size={36}>
                     <IconHeart onClick={onIconClickHandler} className={styles.like} stroke={1.5} />
                 </ActionIcon>

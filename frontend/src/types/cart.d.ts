@@ -1,3 +1,5 @@
+import { IBook } from "./book";
+
 interface ICartProducts {
     product: string,
     quantity: string,
@@ -5,7 +7,7 @@ interface ICartProducts {
 }
 
 export interface ICartResponse {
-    products: ICartProducts[],
-    userId: string,
-    _id: string,
+    product: IBook['_id'],
+    quantity: string,
+    _id: string
 }
