@@ -30,6 +30,7 @@ $pagination.on(setPage, (store, payload) => ({ ...store, page: payload }));
 $pagination.reset(setFilter)
 
 $filter.on(setFilter, (store, payload) => ({...store, ...payload}));
+$filter.reset(fetchBooks);
 
 getBooksFX.failData.watch(() => {
     notifications.show({
