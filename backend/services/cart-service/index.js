@@ -1,4 +1,5 @@
-const { isValidObjectId } = require("mongoose");
+const mongoose = require("mongoose");
+const { isValidObjectId } = mongoose;
 const cartModel = require("../../models/cart-model");
 const ApiError = require("../../utils/apiError");
 
@@ -80,12 +81,38 @@ class CartService {
     }
 
     static async includes(userId, productId) {
-        const product = cartModel.find({
-            userId,
-            'products.product': productId,
-        });
+        const foundProducts = await cartModel.aggregate([
+            {
+                $match: {
+                    userId: new mongoose.Types.ObjectId(userId),
+                    'products.product': {$in: productId}
+                }
+            },
+            {
+                $unwind: '$products'
+            },
+            {
+                $match: {
+                    'products.product': { $in: productId.map(id => new mongoose.Types.ObjectId(id)) } // Дополнительный $match для фильтрации продуктов по productId
+                }
+            },
+            {
+                $group: {
+                    _id: '$userId',
+                    products: { $push: '$products' } // Группируем продукты по userId
+                }
+            },
+            {
+                $project: {
+                    userId: '$_id',
+                    'products': 1 // Оставляем поле products в результате
+                }
+            }
+        ]);
+   
 
-        return product
+   
+        return foundProducts.length > 0 ? foundProducts[0] : undefined
     }
 }
 

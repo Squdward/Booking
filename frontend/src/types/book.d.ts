@@ -9,6 +9,7 @@ export interface IBook {
     price: number,
     author: IAuthor,
     genre: IGenre[]
+    inCart?: boolean,
 }
 
 export interface IBookStore extends IBook {

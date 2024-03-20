@@ -10,15 +10,22 @@ const variant = ['primary', 'outline',]
 
 interface IAddToCartButton {
     id: IBook['_id'],
+    inCart?: IBook['inCart'],
 }
-const AddToCartButton: FC<IAddToCartButton & ButtonProps> = ({ id, ...restProps }) => {
+const AddToCartButton: FC<IAddToCartButton & ButtonProps> = ({ id, inCart = false, ...restProps }) => {
     const [onCartAdd, addedToCart] = useUnit([addToCart, $addedToCart]);
 
     const onCartAddHandler = () => {
         onCartAdd(id);
     };
 
-    const isAdded = addedToCart.has(id)
+    /**
+     * Товар может быть добавлен после нажатия
+     * Или же находится в корзине когда мы рендеримся
+     */
+    const isAddedToCart = addedToCart.has(id); 
+    const isAdded = isAddedToCart || inCart
+
     const key = Number(isAdded);
 
     return (

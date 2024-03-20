@@ -47,7 +47,7 @@ const BookCard: FC<IBookCard> = (props) => {
             </Card.Section>
 
             <Group mt="auto">
-                <AddToCartButton style={{ flex: 1 }} id={props._id}/>
+                <AddToCartButton inCart={props?.inCart} style={{ flex: 1 }} id={props._id}/>
                 <ActionIcon variant="default" radius="md" size={36}>
                     <IconHeart onClick={onIconClickHandler} className={styles.like} stroke={1.5} />
                 </ActionIcon>

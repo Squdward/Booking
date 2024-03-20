@@ -15,8 +15,9 @@ class BookController {
     static async getBooks(req, res, next) {
         try {
             const params = req.query;
+            const userId = req?.user?.userId
 
-            const books = await BookService.getBooks(params);
+            const books = await BookService.getBooks(params, userId);
             
             return res.json(books)
         } catch (error) {

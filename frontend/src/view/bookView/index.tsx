@@ -42,7 +42,7 @@ const BookView: FC<IBook> = (props) => {
                     </span>
 
                     <div className={styles.actions}>
-                        <AddToCartButton className={styles.buy} id={props._id}/>
+                        <AddToCartButton inCart={props?.inCart} className={styles.buy} id={props._id}/>
                         <ActionIcon variant="default" radius="md" size={36}>
                             <IconHeart className={styles.like} stroke={1.5} />
                         </ActionIcon>

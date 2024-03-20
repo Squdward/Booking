@@ -3,8 +3,8 @@ const bookModel = require("../../models/book-model");
 const ApiError = require("../../utils/apiError");
 const FileService = require("../file-service");
 const deepmerge = require("../../utils/deepmerge");
-const cartModel = require("../../models/cart-model");
 const CartService = require("../cart-service");
+
 class BookService {
     static async createBook(body, file) {
         const bookData = await bookModel.findOne({ title: body.title });
@@ -38,18 +38,18 @@ class BookService {
             throw ApiError.NotFound("Book with this id was not found");
         }
 
-        if(userId) {
-            const bookId = populatedData._id;
-
-            const inCart = await CartService.includes(userId, bookId);
-            
-            return populatedData
+        if (userId) {
+            const inCart = await this.checkProductInCart(userId, [populatedData._id]);
+         
+            if (inCart) {
+                return { ...populatedData.toObject(), inCart: true };
+            }
         }
 
         return populatedData;
     }
 
-    static async getBooks(params) {
+    static async getBooks(params, userId) {
         const query = BookService._generateQueryFilter(params);
 
         const booksQuery = bookModel.find(query);
@@ -58,6 +58,34 @@ class BookService {
             await this._paginatBooks(params, booksQuery);
 
         const books = await this._populateQuery(paginatedQuery);
+
+        /**
+         * Находим совпадения с товарами из корзины
+         */
+        if(userId) {
+            const ids = books.map( item => item._id); 
+
+            const productsFromCart = await this.checkProductInCart(userId, ids); // Передавая список ids
+
+            if(productsFromCart) {
+                const {products} = productsFromCart
+                const booksInCart = books.map( item => {
+                    const hasInCart = products.find( ({product}) => product.toString() == item._id.toString());
+
+                    if(hasInCart) {
+                        return {
+                            ...item.toObject(),
+                            inCart: true,
+                        }
+                    }
+
+                    return item
+                })
+
+
+                return { books: booksInCart, currentPage, totalPages };
+            }
+        }
 
         return { books, currentPage, totalPages };
     }
@@ -156,6 +184,18 @@ class BookService {
             .exec();
 
         return populatedData;
+    }
+
+    /**
+     * Проверяет наличие указанного товара в корзине пользователя.
+     * @async
+     * @param {string} userId - Идентификатор пользователя.
+     * @param {string} bookId - Идентификатор товара.
+     */
+    static async checkProductInCart(userId, bookId) {
+        const inCart = await CartService.includes(userId, bookId);
+
+        return inCart;
     }
 }
 

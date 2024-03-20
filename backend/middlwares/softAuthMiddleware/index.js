@@ -1,4 +1,5 @@
 const TokenService = require("../../services/token-service");
+const ApiError = require("../../utils/apiError");
 
 // Мягка проверка на наличие аутентификации
 const SoftAuthMiddleware = async (req, res, next) => {
@@ -6,20 +7,21 @@ const SoftAuthMiddleware = async (req, res, next) => {
         const authorization = req.headers.authorization;
         
         if(!authorization) {
-            return
+            return next()
         }
 
         const accesToken = authorization.split(" ")[1];
 
         if(!accesToken) {
-            return
+            return next()
         }
 
 
         const tokenData = await TokenService.validateAccesToken(accesToken);
 
+        // Возвращаем 401 потому что вероятнее всего токен протух и нам необходимо его обновить
         if(!tokenData) {
-            return 
+            throw ApiError.UnauthorizedError('Token is invalid')
         }
 
         req.user = tokenData
