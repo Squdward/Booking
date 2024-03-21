@@ -1,0 +1,17 @@
+{
+  "name": "booking",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend": "cd backend &&  npm run dev ",
+    "frontend": "cd frontend &&  npm run dev",
+    "dev": "conc --names \"backend,frontend\" -c green.bold,red.bold \"npm run backend\" \"npm run frontend\" "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
