@@ -8,11 +8,11 @@
 .header {
     display: flex;
     gap: 40px;
+    margin-bottom: 80px;
 }
 
 .container {
     width: 300px;
-    // height: 400px; 
 
     & img {
         width: 100%;
@@ -28,17 +28,32 @@
     gap: 20px;
 }
 
-.actions {
+.dates {
     display: flex;
-    align-items: center;
     gap: 10px;
+
+    & span {
+        display: flex;
+        &:not(:first-child) {
+            &:last-child {
+                &::before {
+                    content: "-";
+                    display: block;
+                    margin-left: -10px;
+                }
+            }
+        }
+    }
 }
 
-.buy {
-    flex: 1 1 auto;
-}
 
-.genres {
+.books {
     display: flex;
-    gap: 5px;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.book {
+    width: 340px;
+    min-width: 340px;
 }

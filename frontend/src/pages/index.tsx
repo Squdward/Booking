@@ -9,6 +9,8 @@ import { CreateBook } from "../view/createBook";
 import { Layout } from "../shared/ui/layout";
 import { BookPage } from "./book";
 import { bookByIdLoader } from "../store/book/model";
+import { AuthorPage } from "./author";
+import { AuthorLoader } from "../store/author/model";
 
 const RouterConfig = createBrowserRouter([
     {
@@ -56,7 +58,12 @@ const RouterConfig = createBrowserRouter([
     },
     {
         path: "/author/:id",
-        element: <div>author with id</div>,
+        loader: AuthorLoader,
+        element: (
+            <Layout sidebar={false}>
+                <AuthorPage />
+            </Layout>
+        ),
     },
     {
         path: "/cart",

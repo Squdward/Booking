@@ -30,6 +30,11 @@
 a {
   color: inherit;
   text-decoration: none;
+  transition: color .2s;
+}
+
+a:hover {
+  color: var(--mantine-color-anchor);
 }
 
 p {
@@ -43,6 +48,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
 
 #root {
   display: flex;

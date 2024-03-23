@@ -14,7 +14,7 @@ const BookCard: FC<IBookCard> = (props) => {
     }
 
     return (
-        <Card withBorder radius="md" p="md" className={styles.card}>
+        <Card withBorder radius="md" p="md" className={`${styles.card}, ${props.className}`}>
             <Card.Section>
                 <Link to={`/book/${props._id}`}>
                     <Image
