@@ -3,6 +3,7 @@ import { IAuthor } from "../../types/author";
 import styles from "./styles.module.scss";
 import { BookCard } from "../../shared/bookCard";
 import { softDate } from "../../shared/functions/softDate";
+import { BASE_FILE_URL } from "../../shared/constant";
 
 const AuthorView:FC<IAuthor> = (props) => {
     return (
@@ -10,7 +11,7 @@ const AuthorView:FC<IAuthor> = (props) => {
         <div className={styles.header}>
             <div className={styles.container}>
                 <img
-                    src={`https://raw.githubusercontent.com/Squdward/Booking/main/backend/uploads/${props.img}`}
+                    src={`${BASE_FILE_URL}${props.img}`}
                     className={styles.image}
                 />
             </div>

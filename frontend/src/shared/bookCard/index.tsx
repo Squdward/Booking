@@ -4,7 +4,7 @@ import styles from "./index.module.scss";
 import { IconHeart } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { IBookCard } from "./bookCard";
-import { CURRENCY } from "../constant";
+import { BASE_FILE_URL, CURRENCY } from "../constant";
 import { AddToCartButton } from "../../features/cart/ui/addToCartButton";
 
 const BookCard: FC<IBookCard> = (props) => {
@@ -18,7 +18,7 @@ const BookCard: FC<IBookCard> = (props) => {
             <Card.Section>
                 <Link to={`/book/${props._id}`}>
                     <Image
-                        src={`https://raw.githubusercontent.com/Squdward/Booking/main/backend/uploads/${props.img}`}
+                        src={`${BASE_FILE_URL}${props.img}`}
                         alt={props.title}
                         fit="contain"
                         height={180}

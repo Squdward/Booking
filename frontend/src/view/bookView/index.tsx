@@ -3,7 +3,7 @@ import styles from "./index.module.scss";
 import { Link } from "react-router-dom";
 import { FC } from "react";
 import { IBook } from "../../types/book";
-import { CURRENCY } from "../../shared/constant";
+import { BASE_FILE_URL, CURRENCY } from "../../shared/constant";
 import { IconHeart } from "@tabler/icons-react";
 import { AddToCartButton } from "../../features/cart/ui/addToCartButton";
 
@@ -13,7 +13,7 @@ const BookView: FC<IBook> = (props) => {
             <div className={styles.header}>
                 <div className={styles.container}>
                     <img
-                        src={`https://raw.githubusercontent.com/Squdward/Booking/main/backend/uploads/${props.img}`}
+                        src={`${BASE_FILE_URL}${props.img}`}
                         className={styles.image}
                     />
                 </div>
