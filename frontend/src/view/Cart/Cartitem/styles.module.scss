@@ -1,0 +1,45 @@
+.card {
+    display: flex;
+    gap: 10px;
+    padding: 16px 8px;
+    align-items: flex-start;
+    border-radius: 8px;
+    transition: background .2s;
+
+    &:hover {
+        background: #0000001c;
+    }
+}
+
+.container {
+    width: 100px;
+    height: 132px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    font-size: var(--title-x05);
+}
+
+.author {
+    opacity: 0.8;
+    margin-bottom: var(--offset-x2);
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+.extra {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    padding-top: 11px;
+}

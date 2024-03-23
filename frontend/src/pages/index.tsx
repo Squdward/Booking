@@ -10,7 +10,9 @@ import { Layout } from "../shared/ui/layout";
 import { BookPage } from "./book";
 import { bookByIdLoader } from "../store/book/model";
 import { AuthorPage } from "./author";
-import { AuthorLoader } from "../store/author/model";
+import { authorLoader } from "../store/author/model";
+import { CartPage } from "./cart";
+import { cartLoader } from "../store/cart/model";
 
 const RouterConfig = createBrowserRouter([
     {
@@ -58,7 +60,7 @@ const RouterConfig = createBrowserRouter([
     },
     {
         path: "/author/:id",
-        loader: AuthorLoader,
+        loader: authorLoader,
         element: (
             <Layout sidebar={false}>
                 <AuthorPage />
@@ -67,9 +69,12 @@ const RouterConfig = createBrowserRouter([
     },
     {
         path: "/cart",
+        loader: cartLoader,
         element: (
             <ProtectedRoute>
-                <div>Cart</div>
+                <Layout sidebar={false}>
+                    <CartPage/>
+                </Layout>
             </ProtectedRoute>
         ),
     },

@@ -5,12 +5,12 @@ import { RouterConfig } from "../../pages";
 import { notifications } from "@mantine/notifications";
 import { CartEffects } from "../../shared/api/effects/cart";
 
+//#region  Логика добавления товара в корзину 
 export const addToCartFX = attach({effect: CartEffects.addToCart});
 export const addToCart = createEvent<IBook['_id']>();
 
 export const $addedToCart = createStore<Set<IBook['_id']>>(new Set());
 
-//#region  Логика добавления товара в корзину 
 
 // Если пользователь авторизован то пропускаем дальше
 sample({
@@ -61,4 +61,32 @@ addToCartFX.failData.watch(() => {
 })
 //#endregion Слушатели с сайд эффектами
 
+//#endregion
+
+
+//#region Логика под страницу Cart
+const getCartFX = attach({effect: CartEffects.getCart})
+
+const getCart = createEvent();
+
+export const $cart = createStore<IBook[] | null>(null);
+
+sample({
+    clock: getCart,
+    target: getCartFX
+})
+
+sample({
+    clock: getCartFX.doneData,
+    fn: (data) => {
+        return data.products
+    },
+    target: $cart
+})
+
+export const cartLoader = () => {
+    getCart();
+
+    return null
+}
 //#endregion

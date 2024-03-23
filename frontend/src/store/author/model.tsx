@@ -34,7 +34,7 @@ sample({
     })
 })
 
-export const AuthorLoader = ({params}: LoaderFunctionArgs) => {
+export const authorLoader = ({params}: LoaderFunctionArgs) => {
     const {id} = params;
 
     if(id === undefined) return null;

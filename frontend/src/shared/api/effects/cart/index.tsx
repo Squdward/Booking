@@ -7,6 +7,12 @@ const CartEffects = {
         const requst = await CartRequest.addToCart(bookId);
     
         return requst.data
+    }),
+
+    getCart: createEffect(async () => {
+        const request = await CartRequest.getCart();
+    
+        return request.data
     })
 }
 

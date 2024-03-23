@@ -1,13 +1,13 @@
 import { IBook } from "./book";
 
-interface ICartProducts {
-    product: string,
-    quantity: string,
+interface ICartResponse {
     _id: string,
+    userId: string,
+    products: ICartProduct[],
 }
 
-export interface ICartResponse {
-    product: IBook['_id'],
+export interface ICartProduct {
+    product: IBook,
     quantity: string,
     _id: string
 }
