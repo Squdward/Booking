@@ -40,7 +40,7 @@ class CartService {
     }
 
     static async getCart(userId) {
-        const cart = await cartModel.find({userId}).populate({
+        const cart = await cartModel.findOne({userId}).populate({
             path: "products.product",
             model: "Book",
             populate: [
