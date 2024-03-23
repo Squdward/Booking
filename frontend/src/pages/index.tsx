@@ -8,7 +8,7 @@ import { BookLoader } from "./books/model";
 import { CreateBook } from "../view/createBook";
 import { Layout } from "../shared/ui/layout";
 import { BookPage } from "./book";
-import { bookByIdLoader } from "../features/book/model";
+import { bookByIdLoader } from "../store/book/model";
 
 const RouterConfig = createBrowserRouter([
     {

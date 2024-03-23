@@ -1,7 +1,7 @@
 import { BookView } from "../../view/bookView";
 import { useUnit } from "effector-react";
 import { LoadingOverlay } from "@mantine/core";
-import { $bookData, $isLoading } from "../../features/book/model";
+import { $bookData, $isLoading } from "../../store/book/model";
 import styles from "./index.module.scss"
 
 const BookPage = () => {
