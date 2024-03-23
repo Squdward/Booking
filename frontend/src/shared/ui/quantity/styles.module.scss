@@ -1,0 +1,14 @@
+.quantity {
+    display: flex;
+    align-items: center;
+    background: #f6f6fa;
+    gap: 10px;
+    padding: 4px;
+    border-radius: 14px;
+}
+
+.input {
+    flex: 0 0 auto;
+    width: 50px;
+    text-align: center;
+}
