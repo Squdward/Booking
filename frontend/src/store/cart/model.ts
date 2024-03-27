@@ -4,12 +4,13 @@ import { $user } from "../user/model";
 import { RouterConfig } from "../../pages";
 import { notifications } from "@mantine/notifications";
 import { CartEffects } from "../../shared/api/effects/cart";
+import { ICartProduct, ICartResponse } from "../../types/cart";
 
 //#region  Логика добавления товара в корзину 
 export const addToCartFX = attach({effect: CartEffects.addToCart});
-export const addToCart = createEvent<IBook['_id']>();
+export const addToCart = createEvent<IBook['_id']>(); 
 
-export const $addedToCart = createStore<Set<IBook['_id']>>(new Set());
+export const $addedToCart = createStore<Set<ICartProduct['product']>>(new Set());
 
 
 // Если пользователь авторизован то пропускаем дальше
@@ -63,13 +64,30 @@ addToCartFX.failData.watch(() => {
 
 //#endregion
 
+//#region Логика удаления товара из корзины
+export const removeFromCartFX = attach({effect: CartEffects.removeFromCart});
+export const removeFromCart = createEvent<ICartProduct['_id']>();
+
+sample({
+    clock: removeFromCart,
+    target: removeFromCartFX,
+})
+//#endregion
 
 //#region Логика под страницу Cart
 const getCartFX = attach({effect: CartEffects.getCart})
+const patchCartFX = attach({effect: CartEffects.patchCart})
+
 
 const getCart = createEvent();
+export const changeQuantity = createEvent<{productId: ICartProduct['_id'], quantity: ICartProduct['quantity']}>()
+export const $cart = createStore<ICartResponse['products'] | null>(null);
 
-export const $cart = createStore<IBook[] | null>(null);
+sample({
+    clock: changeQuantity,
+    fn: (payload) =>({productId: payload.productId, quantity: +payload.quantity}),
+    target: patchCartFX,
+})
 
 sample({
     clock: getCart,
@@ -77,7 +95,7 @@ sample({
 })
 
 sample({
-    clock: getCartFX.doneData,
+    clock: [getCartFX.doneData, removeFromCartFX.doneData, patchCartFX.doneData],
     fn: (data) => {
         return data.products
     },

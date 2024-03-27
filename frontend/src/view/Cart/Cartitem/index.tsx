@@ -1,14 +1,21 @@
-import { ActionIcon, Checkbox, Image } from "@mantine/core"
+import { Checkbox, Image } from "@mantine/core"
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import styles from "./styles.module.scss";
 import { BASE_FILE_URL, CURRENCY } from "../../../shared/constant";
 import { Quantity } from "../../../shared/ui/quantity";
 import { FavoriteButton } from "../../../features/favorite/ui/favoriteButton";
-import { IconTrash } from "@tabler/icons-react";
 import { ICartProduct } from "../../../types/cart";
+import { DeleteFromCartButton } from "../../../features/cart/ui/deleteFromCart";
+import { useUnit } from "effector-react";
+import { changeQuantity } from "../../../store/cart/model";
 
-const CartItem:FC<ICartProduct> = ({product, quantity}) => {
+const CartItem:FC<ICartProduct> = ({product, quantity, _id}) => {
+    const onChange  = useUnit(changeQuantity);
+
+    const onChangeHandler = (value: number) => {
+        onChange({productId: _id, quantity: value})
+    }
     return (
         <div className={styles.card}>
             <div className={styles.container}>
@@ -22,11 +29,9 @@ const CartItem:FC<ICartProduct> = ({product, quantity}) => {
                 <span className={styles.price}>{product.price}{CURRENCY}</span>
        
                 <div className={styles.actions}>
-                    <Quantity value={+quantity} onChange={() => console.log('hey')}/>
+                    <Quantity value={+quantity} minValue={1} onChange={onChangeHandler}/>
                     <FavoriteButton/>
-                    <ActionIcon variant="default" radius="md" size={36}>
-                        <IconTrash stroke={1.5}/>
-                    </ActionIcon>
+                    <DeleteFromCartButton productId={_id} />
                 </div>
             </div>
             <div className={styles.extra}><Checkbox/></div>
