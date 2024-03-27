@@ -10,6 +10,11 @@ const CartRequest = {
     },
     getCart: async function():RequestConfig<ICartResponse> {
         return api.get(this.endpointName);
+    },
+
+    removeFromCart: async function(productId: ICartProduct['_id']):RequestConfig<ICartResponse> {
+        return api.delete(`${this.endpointName}/${productId}`)
+    },
     }
 };
 

@@ -11,6 +11,13 @@ const CartEffects = {
 
     getCart: createEffect(async () => {
         const request = await CartRequest.getCart();
+    }),
+
+    removeFromCart: createEffect(async (productId: ICartProduct['_id']) => {
+        const request = await CartRequest.removeFromCart(productId);
+
+        return request.data
+    }),
     
         return request.data
     })
