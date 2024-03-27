@@ -40,26 +40,13 @@ class CartService {
     }
 
     static async getCart(userId) {
-        const cart = await cartModel.findOne({userId}).populate({
-            path: "products.product",
-            model: "Book",
-            populate: [
-                {
-                    path: "author",
-                    select: "fullName",
-                },
-                {
-                    path: "genre"
-                },
-            ]
-
-        })
+        const cart = await cartModel.findOne({userId});
 
         if(!cart) {
             throw ApiError.NotFound("Cart with this userId was not foud")
         }
 
-        return cart 
+        return await this._populate(cart) 
     }
 
     static async removFromCart(userId, cartId) {
@@ -70,14 +57,31 @@ class CartService {
         const removedCart = await cartModel.findOneAndUpdate(
             { userId },
             { $pull: { products: { _id: cartId } } },
-            { new: true }
+            { new: true, }
         );
 
         if (!removedCart) {
             throw ApiError.NotFound("Product with this id was not found ");
         }
 
-        return removedCart;
+        return await this._populate(removedCart);
+    }
+
+    static async editCart(userId, {productId, quantity}) {
+        if (!isValidObjectId(productId)) {
+            throw ApiError.NotFound("productId is invalid");
+        }
+        const changeCart = await cartModel.findOneAndUpdate(
+            { userId, 'products._id': productId },
+            { "$set": {"products.$.quantity": quantity} },
+            { new: true}
+        );
+
+        if (!changeCart) {
+            throw ApiError.NotFound("Product with this id was not found ");
+        }
+
+        return await this._populate(changeCart);
     }
 
     static async includes(userId, productId) {
@@ -113,6 +117,23 @@ class CartService {
 
    
         return foundProducts.length > 0 ? foundProducts[0] : undefined
+    }
+
+    static async _populate(mongoQuery) {
+        return await mongoQuery.populate({
+            path: "products.product",
+            model: "Book",
+            populate: [
+                {
+                    path: "author",
+                    select: "fullName",
+                },
+                {
+                    path: "genre"
+                },
+            ]
+
+        })
     }
 }
 

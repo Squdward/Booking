@@ -41,6 +41,7 @@ router.get('/book/:id', SoftAuthMiddleware, BookController.getBook)
 // Cart
 router.post('/cart', AuthMiddleware, ValidationCartRules.AddToCart(), ValidatorMiddleware, CartController.addToCart)
 router.get('/cart', AuthMiddleware, CartController.getCart)
+router.patch('/cart', AuthMiddleware, CartController.patchCart)
 router.delete('/cart/:cartId', AuthMiddleware, CartController.removeFromCart)
 
 // Favourite

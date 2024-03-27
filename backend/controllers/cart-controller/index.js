@@ -35,6 +35,17 @@ class CartController {
             next(error)
         }
     }
+
+    static async patchCart(req, res, next) {
+        try {
+            const cartData = await CartService.editCart(req.user.userId, req.body);
+
+            return res.json(cartData)
+        } catch (error) {
+            console.error(error);
+            next(error)
+        }
+    }
 }
 
 module.exports = CartController
