@@ -10,7 +10,6 @@ interface ICartlist {
 const CartList:FC<ICartlist> = ({products}) => {
     return (
         <div className={styles.list}>
-            <h1>Корзина {products.length}</h1>
             {products.map( item => {
                 return (
                     <CartItem key={item._id} {...item}/>
