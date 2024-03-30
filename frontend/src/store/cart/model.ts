@@ -5,6 +5,7 @@ import { RouterConfig } from "../../pages";
 import { notifications } from "@mantine/notifications";
 import { CartEffects } from "../../shared/api/effects/cart";
 import { ICartProduct, ICartResponse } from "../../types/cart";
+import { debug } from "patronum";
 
 //#region  Логика добавления товара в корзину 
 export const addToCartFX = attach({effect: CartEffects.addToCart});
@@ -80,12 +81,28 @@ const patchCartFX = attach({effect: CartEffects.patchCart})
 
 
 const getCart = createEvent();
-export const changeQuantity = createEvent<{productId: ICartProduct['_id'], quantity: ICartProduct['quantity']}>()
+export const changeQuantity = createEvent<{productId: ICartProduct['_id'], quantity: number}>()
 export const $cart = createStore<ICartResponse['products'] | null>(null);
+
+export const $selectedProduct = createStore<ICartProduct['_id'][]>([])
+export const selectProduct = createEvent<ICartProduct['_id']>();
+$selectedProduct.on(selectProduct, (store, id) => {
+    const clone = [...store];
+
+    const productIndex = clone.findIndex( item => item === id);
+
+    if(productIndex !== -1) {
+        clone.splice(productIndex, 1);
+    } else {
+        clone.push(id)
+    }
+
+    return clone
+})
 
 sample({
     clock: changeQuantity,
-    fn: (payload) =>({productId: payload.productId, quantity: +payload.quantity}),
+    fn: (payload) =>({productId: payload.productId, quantity: payload.quantity}),
     target: patchCartFX,
 })
 
@@ -108,3 +125,5 @@ export const cartLoader = () => {
     return null
 }
 //#endregion
+
+debug($selectedProduct)

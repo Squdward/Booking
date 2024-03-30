@@ -8,14 +8,19 @@ import { FavoriteButton } from "../../../features/favorite/ui/favoriteButton";
 import { ICartProduct } from "../../../types/cart";
 import { DeleteFromCartButton } from "../../../features/cart/ui/deleteFromCart";
 import { useUnit } from "effector-react";
-import { changeQuantity } from "../../../store/cart/model";
+import { $selectedProduct, changeQuantity, selectProduct } from "../../../store/cart/model";
 
 const CartItem:FC<ICartProduct> = ({product, quantity, _id}) => {
-    const onChange  = useUnit(changeQuantity);
+    const [onChange, selectedProducts, onSelect]  = useUnit([changeQuantity, $selectedProduct, selectProduct]);
 
     const onChangeHandler = (value: number) => {
         onChange({productId: _id, quantity: value})
     }
+
+    const onSelectHandler = () => {
+        onSelect(_id)
+    }
+    const isSelect = selectedProducts.includes(_id)
     return (
         <div className={styles.card}>
             <div className={styles.container}>
@@ -34,7 +39,7 @@ const CartItem:FC<ICartProduct> = ({product, quantity, _id}) => {
                     <DeleteFromCartButton productId={_id} />
                 </div>
             </div>
-            <div className={styles.extra}><Checkbox/></div>
+            <div className={styles.extra}><Checkbox checked={isSelect} onChange={onSelectHandler}/></div>
         </div>
     )
 }
