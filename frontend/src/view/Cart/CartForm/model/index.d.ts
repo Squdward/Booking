@@ -13,7 +13,6 @@ export interface IOnChange {
     value:  IForm[keyof IForm],
 }
 
-export type IErrorState = Record<string, string | null> 
+export type IErrorState = Record<keyof IForm, string | null>
 
 export type ISelectKeys = 'type'  | 'payment';
-
