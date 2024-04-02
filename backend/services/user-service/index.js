@@ -3,6 +3,9 @@ const ApiError = require("../../utils/apiError");
 const bcrypt = require('bcrypt');
 const TokenService = require("../token-service");
 const userDTO = require("./config");
+const CartService = require("../cart-service");
+const FavouriteService = require("../favorite-service");
+const OrderService = require("../order-service");
 
 class UserService {
     static async registration(email, password) {
@@ -21,6 +24,10 @@ class UserService {
         const { accesToken, refreshToken} = TokenService.generate(userDto.id)
         
         TokenService.save(userDto.id, refreshToken);
+
+        CartService.createCart(userDto.id);
+        FavouriteService.createFavourite(userDto.id);
+        OrderService.initOrder(userDto.id)
 
         return {user: userDto, accesToken, refreshToken}
     }
