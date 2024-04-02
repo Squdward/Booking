@@ -12,4 +12,16 @@ class OrderController {
         }
     }
 
+    static async getOrders(req, res, next) {
+        try {
+            const order = await OrderService.getOrders(req.user.userId);
+
+            return res.json(order)
+        } catch (error) {
+            console.error(error);
+            next(error)
+        }
+    }
+}
+
 module.exports = OrderController
