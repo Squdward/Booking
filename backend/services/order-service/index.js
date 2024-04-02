@@ -35,6 +35,27 @@ class OrderService {
         return await OrderService._populate(order)
     }
 
+    static async getOrders(userId) {
+        const orders = await orderModel.findOne({userId});
+
+        if(!orders) {
+            throw ApiError.NotFound('Order was not found')
+
+        }
+
+        // return await this._populate(orders)
+        return await orders.populate({
+            path: 'orders.products',
+            populate: {
+                path: 'products',
+                populate: {
+                    path: 'product',
+                    model: 'Book'
+                }
+            }
+        })
+    }
+
     static async _populate(mongoQuery) { 
         // return await mongoQuery.populate()
         return await mongoQuery.populate(orderSchema())

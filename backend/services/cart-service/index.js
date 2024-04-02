@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { isValidObjectId } = mongoose;
 const cartModel = require("../../models/cart-model");
 const ApiError = require("../../utils/apiError");
+const { cartSchema } = require("../../utils/popuateSchema/cart");
 
 class CartService {
     static async createCart(userId) {
@@ -46,7 +47,7 @@ class CartService {
             throw ApiError.NotFound("Cart with this userId was not foud")
         }
 
-        return await this._populate(cart) 
+        return await this._populateQuery(cart) 
     }
 
     static async removFromCart(userId, cartId) {
@@ -64,7 +65,7 @@ class CartService {
             throw ApiError.NotFound("Product with this id was not found ");
         }
 
-        return await this._populate(removedCart);
+        return await this._populateQuery(removedCart);
     }
 
     static async editCart(userId, {productId, quantity}) {
@@ -81,7 +82,7 @@ class CartService {
             throw ApiError.NotFound("Product with this id was not found ");
         }
 
-        return await this._populate(changeCart);
+        return await this._populateQuery(changeCart);
     }
 
     static async includes(userId, productId) {
@@ -113,27 +114,23 @@ class CartService {
                 }
             }
         ]);
-   
-
-   
         return foundProducts.length > 0 ? foundProducts[0] : undefined
     }
 
-    static async _populate(mongoQuery) {
-        return await mongoQuery.populate({
-            path: "products.product",
-            model: "Book",
-            populate: [
-                {
-                    path: "author",
-                    select: "fullName",
-                },
-                {
-                    path: "genre"
-                },
-            ]
+    static async _populateQuery(mongoQuery) {
+        return await mongoQuery.populate(cartSchema())
+    }
 
-        })
+       /**
+     * Проверяет наличие указанного товара в корзине пользователя.
+     * @async
+     * @param {string} userId - Идентификатор пользователя.
+     * @param {string} bookId - Идентификатор товара.
+     */
+       static async checkProductInCart(userId, bookId) {
+        const inCart = await CartService.includes(userId, bookId);
+
+        return inCart;
     }
 }
 

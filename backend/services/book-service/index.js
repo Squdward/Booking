@@ -4,6 +4,7 @@ const ApiError = require("../../utils/apiError");
 const FileService = require("../file-service");
 const deepmerge = require("../../utils/deepmerge");
 const CartService = require("../cart-service");
+const { bookSchema } = require("../../utils/popuateSchema/book");
 
 class BookService {
     static async createBook(body, file) {
@@ -39,8 +40,10 @@ class BookService {
         }
 
         if (userId) {
-            const inCart = await this.checkProductInCart(userId, [populatedData._id]);
-         
+            const inCart = await CartService.checkProductInCart(userId, [
+                populatedData._id,
+            ]);
+
             if (inCart) {
                 return { ...populatedData.toObject(), inCart: true };
             }
@@ -62,26 +65,28 @@ class BookService {
         /**
          * Находим совпадения с товарами из корзины
          */
-        if(userId) {
-            const ids = books.map( item => item._id); 
+        if (userId) {
+            const ids = books.map((item) => item._id);
 
-            const productsFromCart = await this.checkProductInCart(userId, ids); // Передавая список ids
+            const productsFromCart = await CartService.checkProductInCart(userId, ids); // Передавая список ids
 
-            if(productsFromCart) {
-                const {products} = productsFromCart
-                const booksInCart = books.map( item => {
-                    const hasInCart = products.find( ({product}) => product.toString() == item._id.toString());
+            if (productsFromCart) {
+                const { products } = productsFromCart;
+                const booksInCart = books.map((item) => {
+                    const hasInCart = products.find(
+                        ({ product }) =>
+                            product.toString() == item._id.toString()
+                    );
 
-                    if(hasInCart) {
+                    if (hasInCart) {
                         return {
                             ...item.toObject(),
                             inCart: true,
-                        }
+                        };
                     }
 
-                    return item
-                })
-
+                    return item;
+                });
 
                 return { books: booksInCart, currentPage, totalPages };
             }
@@ -179,23 +184,7 @@ class BookService {
      * @returns {Promise<Object[]>} Промис, который разрешается массивом объектов, содержащих данные книг с заполненными данными из связанных коллекций.
      */
     static async _populateQuery(MongoQuery) {
-        const populatedData = await MongoQuery.populate("genre")
-            .populate({ path: "author", select: ["fullName", "_id"] })
-            .exec();
-
-        return populatedData;
-    }
-
-    /**
-     * Проверяет наличие указанного товара в корзине пользователя.
-     * @async
-     * @param {string} userId - Идентификатор пользователя.
-     * @param {string} bookId - Идентификатор товара.
-     */
-    static async checkProductInCart(userId, bookId) {
-        const inCart = await CartService.includes(userId, bookId);
-
-        return inCart;
+        return await MongoQuery.populate(bookSchema());
     }
 }
 
