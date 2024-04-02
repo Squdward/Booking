@@ -1,5 +1,3 @@
-const CartService = require("../../services/cart-service");
-const FavouriteService = require("../../services/favorite-service");
 const UserService = require("../../services/user-service");
 const ApiError = require("../../utils/apiError");
 const { REFRESH_COOKIE_NAME, REFRESH_COOKIE_MAX_AGE } = require("../../utils/constant/cookie");
@@ -16,9 +14,6 @@ class UserController {
 
             const userData = await UserService.registration(email, password);
 
-            CartService.createCart(userData.user.id);
-            FavouriteService.createFavourite(userData.user.id);
-            
             response.cookie(REFRESH_COOKIE_NAME, userData.refreshToken, {maxAge: REFRESH_COOKIE_MAX_AGE, path: "/",  httpOnly: true} )
             
             return response.json(userData)

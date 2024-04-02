@@ -16,6 +16,8 @@ const FavouriteController = require('../controllers/favourite-controller');
 const ValidationFavouriteRules = require('../validationRules/favourite');
 const SearchController = require('../controllers/search-controller');
 const { SoftAuthMiddleware } = require('../middlwares/softAuthMiddleware');
+const ValidationOrderRules = require('../validationRules/order');
+const OrderController = require('../controllers/order-controller');
 const router = new Router();
 
 // Auth Block
@@ -43,6 +45,9 @@ router.post('/cart', AuthMiddleware, ValidationCartRules.AddToCart(), ValidatorM
 router.get('/cart', AuthMiddleware, CartController.getCart)
 router.patch('/cart', AuthMiddleware, CartController.patchCart)
 router.delete('/cart/:cartId', AuthMiddleware, CartController.removeFromCart)
+
+router.post('/order', AuthMiddleware, ValidationOrderRules.createOrder(), ValidatorMiddleware, OrderController.createOrder)
+router.get('/order', AuthMiddleware, OrderController.getOrders)
 
 // Favourite
 router.post('/favourite', AuthMiddleware, ValidationFavouriteRules.addToFavourite(), ValidatorMiddleware, FavouriteController.addToFavourite)

@@ -8,10 +8,7 @@ const CartSchema = new Schema({
                 type: Schema.Types.ObjectId,
                 ref: "Book",
             },
-            quantity: {
-                type: Number,
-                default: 1,
-            }
+            quantity: { type: Number }
         }
     ]
 }, {versionKey: false})
