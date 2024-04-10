@@ -15,7 +15,7 @@ const TYPE = {
         <Input.Wrapper error={errors.deliveryShop}>
             <Select
                 value={state.deliveryShop}
-                onChange={(value) => onChange('delivery', value)}
+                onChange={(value) => onChange('deliveryShop', value)}
                 name="deliveryShop"
                 placeholder="Выберите магазин"
                 data={SHOP_ADRES_OPTIONS}
@@ -27,7 +27,7 @@ const TYPE = {
         <Input.Wrapper error={errors.deliveryAdres}>
             <Input
                 value={state.deliveryAdres}
-                onChange={(e) => onChange('delivery', e.target.value)}
+                onChange={(e) => onChange('deliveryAdres', e.target.value)}
                 name="deliveryAdres"
                 placeholder="Введите ваш адрес"
                 onFocus={() => onFocus('deliveryAdres')}

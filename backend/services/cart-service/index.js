@@ -65,7 +65,7 @@ class CartService {
             throw ApiError.NotFound("Product with this id was not found ");
         }
 
-        return await this._populateQuery(removedCart);
+        // return await this._populateQuery(removedCart);
     }
 
     static async editCart(userId, {productId, quantity}) {

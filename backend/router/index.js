@@ -46,6 +46,7 @@ router.get('/cart', AuthMiddleware, CartController.getCart)
 router.patch('/cart', AuthMiddleware, CartController.patchCart)
 router.delete('/cart/:cartId', AuthMiddleware, CartController.removeFromCart)
 
+// Order
 router.post('/order', AuthMiddleware, ValidationOrderRules.createOrder(), ValidatorMiddleware, OrderController.createOrder)
 router.get('/order', AuthMiddleware, OrderController.getOrders)
 

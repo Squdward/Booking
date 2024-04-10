@@ -1,10 +1,11 @@
-import { attach, createEffect, createEvent, createStore, sample } from "effector";
+import { attach, createEvent, createStore, sample } from "effector";
 import { IErrorState, IForm, IOnChange } from ".";
 import { initialState, initialErrors } from "./utils";
 import { debug, every } from "patronum";
-import { $errors } from "../../../authForm/model";
+import { $selectedProduct } from "../../../../store/cart/model";
+import { OrderEffects } from "../../../../shared/api/effects/order";
 
-export const submitFx = attach({effect: createEffect()});
+export const submitFx = attach({effect: OrderEffects.create});
 
 export const onFormChange = createEvent<IOnChange>();
 export const onSubmit = createEvent();
@@ -62,9 +63,12 @@ sample({
 
 sample({
     clock: onSubmit,
-    source: {errors:$hasErrors, form: $form},
-    filter: ({errors}) => errors,
+    source: {errors:$hasErrors, form: $form, products: $selectedProduct},
+    filter: ({errors, products}) => {
+        console.log({errors: errors, products, })
+        return errors && products.length <= 0
+    },
     target: submitFx
 })
 
-debug($form, $errors, $hasErrors)
+debug($hasErrors, $form, $selectedProduct)

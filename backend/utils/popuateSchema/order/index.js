@@ -1,18 +1,11 @@
-const { cartSchema } = require("../cart");
+const { bookSchema } = require("../book");
 
-const orderSchema = () => {
-    return [
-        {
-            path: "orders.products",
-            model: "Cart",
-            populate: [
-                {
-                    
-                }
-            ]
-            // populate: cartSchema()
-        }
-    ];
-}
+const orderSchema = () => [
+    {
+        path: "orders.products.product",
+        model: "Book",
+        populate: bookSchema()
+    }
+]
 
 module.exports = {orderSchema}

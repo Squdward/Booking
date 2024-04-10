@@ -5,11 +5,17 @@ const OrderSchema = new Schema({
     userId: {type: Schema.Types.ObjectId, ref: "User", required: true},
     orders: [
         {
-            products: [{
-                type: Schema.Types.ObjectId,
-                ref: "Cart",
-                // refPath: "Cart.products.product"
-            }],
+            products: [
+                {   
+                    product: {
+                        type: Schema.Types.ObjectId,
+                        ref: "Book",
+                    },
+                    quantity: {
+                        type: Schema.Types.Number
+                    }
+                }
+            ],
             status: {
                 type: Schema.Types.Number,
                 enum: Object.values(STATUS)
