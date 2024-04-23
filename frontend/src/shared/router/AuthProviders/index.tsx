@@ -5,7 +5,7 @@ import { $user } from "../../../store/user/model"
 
 const ProtectedRoute:FC<PropsWithChildren> = ({children}) => {
     const user = useUnit($user)
-
+    console.log(user)
     if(!user?.isAuth) {
       console.error("You're is'nt authenificated")
       

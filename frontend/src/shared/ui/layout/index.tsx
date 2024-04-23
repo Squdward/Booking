@@ -5,11 +5,12 @@ import { Header } from "../header";
 
 interface ILayout {
     sidebar?: boolean,
+    header?: boolean,
 }
-const Layout:FC<ILayout & PropsWithChildren> = ({children, sidebar=true}) => {
+const Layout:FC<ILayout & PropsWithChildren> = ({children, sidebar=true, header=true,}) => {
     return (
         <div className={styles.layout}>
-            <Header/>
+            {header && <Header/>}
 
             <div className={styles.content}>
                 {sidebar && <Sidebar/>}
