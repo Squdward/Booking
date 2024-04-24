@@ -53,5 +53,3 @@ export const bookByIdLoader = ({params}: LoaderFunctionArgs) => {
 
     return null;
 }
-
-debug($isLoading)

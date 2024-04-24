@@ -125,5 +125,3 @@ export const cartLoader = () => {
     return null
 }
 //#endregion
-
-debug($selectedProduct)

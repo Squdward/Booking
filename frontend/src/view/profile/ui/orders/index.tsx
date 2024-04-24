@@ -23,14 +23,11 @@ const Orders = () => {
               <Accordion.Item value={item._id} key={item._id}>
                 <Accordion.Control>
                   <Flex justify="flex-start" align="center" gap={"md"}>
-                    <h5>
-                      Дата Создания:{" "}
-                      {new Date(item.created).toLocaleDateString()}
-                    </h5>
-
+                    <h5> Дата Создания:{" "} {new Date(item.created).toLocaleDateString()}</h5>
                     <span>Статус заказа: {STATUS_MAP[item.status]}</span>
                   </Flex>
                 </Accordion.Control>
+
                 <Accordion.Panel>
                     <Grid>
                     {item.products.map((product) => {

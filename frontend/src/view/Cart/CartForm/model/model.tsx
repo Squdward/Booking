@@ -70,5 +70,3 @@ sample({
     },
     target: submitFx
 })
-
-debug($hasErrors, $form, $selectedProduct)

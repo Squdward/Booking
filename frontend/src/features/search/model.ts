@@ -1,7 +1,7 @@
 import { notifications } from "@mantine/notifications";
 import { attach, createEvent, createStore, sample } from "effector";
 import { BookEffects } from "../../shared/api/effects/book";
-import { debug, debounce } from "patronum";
+import { debounce } from "patronum";
 
 const onSearchFx = attach({effect: BookEffects.searchBook})
 
@@ -54,6 +54,3 @@ onSearchFx.failData.watch(() => {
         message: "Error happend",
     })
 })
-
-
-debug($searchResult)
