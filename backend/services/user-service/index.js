@@ -93,7 +93,7 @@ class UserService {
     }
 
     static async patch(id, body) {
-        const user = await userModel.findByIdAndUpdate(id, body);
+        const user = await userModel.findByIdAndUpdate(id, body, {new: true});
 
         if(!user) {
             throw ApiError.NotFound('User was not found');
