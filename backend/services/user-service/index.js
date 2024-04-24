@@ -81,6 +81,26 @@ class UserService {
         const deletedToken = TokenService.removeToken(refreshToken);
         return deletedToken
     }
+
+    static async get(id) {
+        const user = await userModel.findById(id);
+
+        if(!user) {
+            throw ApiError.NotFound('User was not found');
+        }
+
+        return userDTO(user)
+    }
+
+    static async patch(id, body) {
+        const user = await userModel.findByIdAndUpdate(id, body);
+
+        if(!user) {
+            throw ApiError.NotFound('User was not found');
+        }
+
+        return userDTO(user)
+    }
 }
 
 

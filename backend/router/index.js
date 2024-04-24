@@ -18,6 +18,7 @@ const SearchController = require('../controllers/search-controller');
 const { SoftAuthMiddleware } = require('../middlwares/softAuthMiddleware');
 const ValidationOrderRules = require('../validationRules/order');
 const OrderController = require('../controllers/order-controller');
+const ValidationUserRules = require('../validationRules/user');
 const router = new Router();
 
 // Auth Block
@@ -54,6 +55,10 @@ router.get('/order', AuthMiddleware, OrderController.getOrders)
 router.post('/favourite', AuthMiddleware, ValidationFavouriteRules.addToFavourite(), ValidatorMiddleware, FavouriteController.addToFavourite)
 router.get('/favourite', AuthMiddleware, FavouriteController.getFavourite)
 router.delete('/favourite/:favouriteId', AuthMiddleware, FavouriteController.removeFromFavourite)
+
+// User
+router.get('/user', AuthMiddleware, UserController.get);
+router.patch('/user', AuthMiddleware, ValidationUserRules.patch(), ValidatorMiddleware, UserController.patch);
 
 // search
 router.get('/search', SearchController.search);

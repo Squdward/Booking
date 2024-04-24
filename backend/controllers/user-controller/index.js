@@ -69,6 +69,25 @@ class UserController {
         }
     }
 
+    static async get(request, response, next) {
+        try {
+            const user = await UserService.get(request.user.userId)
+
+            return response.json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static async patch(request, response, next) {
+        try {
+            const user = await UserService.patch(request.user.userId, request.body)
+
+            return response.json(user)
+        } catch (error) {
+            next(error)
+        }
+    }
 }
 
 module.exports = UserController
