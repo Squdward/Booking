@@ -8,11 +8,6 @@ import { BASE_FILE_URL, CURRENCY } from "../constant";
 import { AddToCartButton } from "../../features/cart/ui/addToCartButton";
 
 const BookCard: FC<IBookCard> = (props) => {
-
-    const onIconClickHandler = () => {
-        return props.onIconClick(props._id)
-    }
-
     return (
         <Card withBorder radius="md" p="md" className={`${styles.card}, ${props.className}`}>
             <Card.Section>
@@ -46,12 +41,7 @@ const BookCard: FC<IBookCard> = (props) => {
                 </Text>
             </Card.Section>
 
-            <Group mt="auto">
-                <AddToCartButton inCart={props?.inCart} style={{ flex: 1 }} id={props._id}/>
-                <ActionIcon variant="default" radius="md" size={36}>
-                    <IconHeart onClick={onIconClickHandler} className={styles.like} stroke={1.5} />
-                </ActionIcon>
-            </Group>
+            {props.actions && <Group mt="auto">{props.actions}</Group>}
         </Card>
     );
 };

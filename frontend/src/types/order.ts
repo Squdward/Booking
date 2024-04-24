@@ -10,7 +10,7 @@ export interface IOrderResponse {
     orders: IOrderItem[]
 }
 
-interface IOrderItem {
+export interface IOrderItem {
     products: ICartProduct[],
     status: 0 | 1 | 2 | 3 | 4,
     created: string, //iso 8601

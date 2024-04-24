@@ -7,6 +7,11 @@ const OrderEffects = {
         const request = await OrderRequest.create(body);
 
         request.data
+    }),
+    get: createEffect(async () => {
+        const request = await OrderRequest.get();
+
+        return request.data
     })
 }
 

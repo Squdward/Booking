@@ -1,6 +1,7 @@
 import { IBookStore } from "../../types/book";
 
 export interface IBookCard extends IBookStore {
-    onIconClick: (id) => void,
+    onIconClick?: (id) => void,
     className?: string,
+    actions?: React.ReactNode,
 }
